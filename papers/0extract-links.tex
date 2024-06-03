@@ -1,0 +1,13 @@
+\documentclass{article}
+% load the lua code
+\directlua{require("newpax")}
+% write .newpax files for newpax.sty
+\directlua
+{
+newpax.writenewpax("pub-Braemer2022-Pairlocalization")
+newpax.writenewpax("pub-Euler2024-MetronomeSpin")
+newpax.writenewpax("pub-Franz2022-Cusp")
+newpax.writenewpax("pub-Franz2023-UniversalDynamics")
+}
+\begin{document}
+\end{document}
