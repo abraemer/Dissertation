@@ -1,3 +1,4 @@
+% !TeX root = main.tex
 % **************************************************************************************************************
 % A Classic Thesis Style
 % An Homage to The Elements of Typographic Style
@@ -37,8 +38,7 @@
     \WarningFilter{titlesec}{Non standard sectioning command detected}
 \documentclass[ twoside,openright,titlepage,numbers=noenddot,%1headlines,
                 headinclude,footinclude,cleardoublepage=empty,abstract=on,
-                BCOR=5mm,paper=a4,fontsize=11pt
-                ]{scrreprt}
+                BCOR=5mm,paper=a4,fontsize=11pt]{scrreprt}
 
 %********************************************************************
 % Note: Make all your adjustments in here
@@ -65,8 +65,9 @@
 % Drafting commands
 %*******************************************************
 \newcommand{\ifdraft}[1]{#1}
-\ifdraft{\usepackage{pdfpages}}
+\ifdraft{}
 
+\usepackage{pdfpages}
 \usepackage{newpax}
 \newpaxsetup{addannots=true}
 
@@ -101,29 +102,33 @@
 % use \cleardoublepage here to avoid problems with pdfbookmark
 \cleardoublepage
 
-\part{Background}\label{pt:background}
-\include{Chapters/Chapter01}
-\include{Chapters/Chapter02}
-\include{Chapters/Chapter03}
-\include{Chapters/Chapter04}
-\cleardoublepage
-% \ctparttext{You can put some informational part preamble text here.}
+\include{Chapters/Introduction}
 
-\part{Results}\label{pt:results}
-\include{Chapters/Chapter05}
-\ifdraft{\includepdf[pages=-]{pub-Braemer2022-Pairlocalization}}
-\addtocounter{page}{0} % add space to account for inserted paper -> insert will be done via an external tool
-\include{Chapters/Chapter06}
-\ifdraft{\includepdf[pages=-]{pub-Franz2022-Cusp}}
-\addtocounter{page}{0}
-\include{Chapters/Chapter07}
-\ifdraft{\includepdf[pages=-]{pub-Franz2023-UniversalDynamics}}
-\addtocounter{page}{0}
-\include{Chapters/Chapter08}
-\ifdraft{\includepdf[pages=-]{pub-Euler2024-MetronomeSpin}}
-\addtocounter{page}{0}
-\include{Chapters/Chapter09}
-\addtocounter{page}{0}
+%\ctparttext{You can put some informational part preamble text here.}
+\part{Spatially disordered Heisenberg spin models}\label{pt:spatial-disorder}
+\include{Part1-closed-QS/Chapter01-Thermalization}
+\include{Part1-closed-QS/Chapter02-Experiment}
+
+\include{Part1-closed-QS/Chapter03-Numerical-results}
+\includepdf[pages=-]{pub-Braemer2022-Pairlocalization}
+
+\include{Part1-closed-QS/Chapter04-Experimental-results}
+\includepdf[pages=-]{pub-Franz2023-UniversalDynamics}
+\includepdf[pages=-]{pub-Franz2022-Cusp}
+
+\include{Part1-closed-QS/Chapter05-Discussion}
+
+\part{Spatially inhomogeneous Floquet drive}\label{pt:floquet}
+\include{Part2-Floquet/Chapter01-Floquet-Timecrystals}
+
+\include{Part2-Floquet/Chapter02-Metronome-spin}
+\includepdf[pages=-]{pub-Euler2024-MetronomeSpin}
+
+\include{Part2-Floquet/Chapter03-Discussion}
+
+\part{Summary}
+\include{Chapters/Summary-and-Conclusion}
+
 % ********************************************************************
 % Backmatter
 %*******************************************************
