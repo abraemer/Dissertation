@@ -1,23 +1,52 @@
 \chapter{Concepts: Thermalization and absence thereof}\label{ch:another}
 \section{Thermalization}
+equilibration is generic: \cite{reimannFoundationStatisticalMechanics2008,lindenQuantumMechanicalEvolution2009}
+
+thermalization from first principles: ETH \cite{deutschQuantumStatisticalMechanics1991,srednickiChaosQuantumThermalization1994,rigolThermalizationItsMechanism2008}
+
+reviews: \cite{gogolinEquilibrationThermalisationEmergence2016,dalessioQuantumChaosEigenstate2016,deutschEigenstateThermalizationHypothesis2018,moriThermalizationPrethermalizationIsolated2018}
+
+experiments?
+
+Interestingly, even in ordered system for $\alpha<1$ ETH is violates\cite{sugimotoEigenstateThermalizationLongRange2022}.
+
 
 \subsection{Prethermalization}
+
+review: \cite{moriThermalizationPrethermalizationIsolated2018}
 
 \section{MBL}
 \subsection{L-bit picture}
 
 phenomenology review: \cite{imbrieReviewLocalIntegrals2017}
 
+
 Still number entropy can grow albeit very slowly\cite{kiefer-emmanouilidisEvidenceUnboundedGrowth2020,chavezUltraslowGrowthNumber2023}
 
 Entanglement entropy similarly\cite{bardarsonUnboundedGrowthEntanglement2012}, proven later\cite{huangExtensiveEntropyUnitary2021}
 
-\subsection{Stability}
 Interactions can help\cite{huangInteractionenhancedManybodyLocalization2024}
 
-\subsection{Controversy}
+\subsection{Does MBL exist?}
 Existence proof (TFIM): \cite{imbrieManyBodyLocalizationQuantum2016}
 
 However, MBL might be finite size
 
 Avalanche thermalization
+
+
+\subsection{Long-range}
+
+heuristic resonance counting, no MBL for $\alpha\leq d$ in XXZ \cite{yaoManyBodyLocalizationDipolar2014,burinManybodyDelocalizationStrongly2015,gutmanEnergyTransportAnderson2016} or Anderson model \cite{burinEnergyDelocalizationStrongly2006} with somewhat mixed behavior for $\alpha\leq 2d$ (Anderson localization at zero temperature, other pair forms for Yao XXZ). Refined by \cite{burinLocalizationRandomXY2015} for XX model to $\alpha > \frac{3d}{2}$.
+
+Powerlaw with random on-site potentials chain:\\ \cite{safavi-nainiQuantumDynamicsDisordered2019} confirm MBL using dynamics, half-chain entanglement entropy grows with $1/\alpha$. Different critical $\alpha_c$ for XX ($\alpha_c\sim1$) and XXX ($\alpha_c\sim2$). \\
+\cite{schifferManybodyLocalizationSpin2019} confirm MBL using spectral indicators (half-chain entropy, level spacing ratio, variance of HCE). Find $\alpha_c \approx 1.16\pm0.17$. Mobility edge found in\cite{yousefjaniMobilityEdgeLongrange2023}.
+
+These works conceptually continue the random potential line of thought and just tack on some powerlaw interactions with random coefficients. This is a different regime than what I study where the main disorder does not stem from random potentials but is due to widely varying interaction strengths. To make this difference clear, I note that without random fields, these early works claim MBL to be impossible, as any spin is resonant with every other spin. However, RSRG tells us that each spin effectively on interacts with its \emph{strongest} resonant partner. Their fast interaction then effectively decouples the pair from the rest of the spins. That's why this resonance counting is not relevant for localization for truly bond-disordered systems and raises the question about possible differences between random field models with some random long-range interaction and bond-disordered models with some random fields.
+
+\subsection{Localization in long-range, bond-disordered systems}
+
+Long-range bond-disorder:
+\cite{mohdebEntanglementPropertiesDisordered2020,mohdebExcitedEigenstateEntanglementProperties2022,mohdebGlobalQuenchDynamics2023}
+
+
