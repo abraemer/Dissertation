@@ -1,29 +1,44 @@
 \chapter{Evidence of pair localization in dynamics of Rydberg spins}
-\section{Anisotropy-dependent dynamics}
+
+In this chapter, we apply the previously derived effective model of pairs to model and interpret experimental results from a Rydberg-based quantum simulator. While the experiment is limited to global control and readout, we make great use of its ability to implement models with different anisotropy and various density (which translates to disorder strength).
+
+We find the pair model to yield  an excellent agreement with the observed behavior explaining both the relaxation dynamics and rescaling thereof~\cite{franzObservationUniversalRelaxation2023} as well as the dependence of the steady state magnetization on the strength of the transverse field~\cite{franzEmergentPairLocalization2022}.
+
+
+\section{Anisotropy-independent relaxation dynamics}
+In this paper, we utilize the ability of the Rydberg quantum simulator to implement XX, XXZ and Ising models to measure the relaxation of the $x$-magnetization when starting from a fully magnetized state. For disordered Ising models prior work has shown the relaxation to follow a stretched exponential form well-known from spin glasses~\cite{breyStretchedExponentialDecay1993,signolesGlassyDynamicsDisordered2021,schultzenGlassyQuantumDynamics2022,schultzenSemiclassicalSimulationsPredict2022}. It has been conjectured that this type of slow, hierarchical relaxation is a common feature of strongly disordered quantum systems~\cite{haldarSlowDynamicsKohlrausch2023}.
+
+Indeed we find that for all three models the relaxation curves are fitted well by stretched exponentials. Moreover, we also find a scaling law for the characteristic decay time scale which hints at a common origin of the relaxation. This mechanism is explained by the pair model, which yields that for all three models the relaxation is caused essentially by oscillations of the magnetization of pairs. Since each pair has a different oscillation frequency these individual oscillations dephase and thus cause the total magnetization to decay. From the parameter dependence of these pair oscillations, we recover the characteristic timescale for the global magnetization's decay. Thus demonstrating an effect pair localization at least over experimentally relevant timescales.
+
 \includepdf[pages=-]{pub-Franz2023-UniversalDynamics}
 
 \section{Emergent pair localization}
+Another way of validating the pair model is the comparison of the same system subject different disorder strength. This can be realized in a Rydberg based quantum simulator by tuning the systems density as explained in the background chapter. %TODO reference
 
+In the work below, we again use the $x$-magnetization as observable and track its steady-state value with respect to an external magnetic field aligned in $x$-direction as well. We find a clear qualitative difference at weak external field where the strongly disordered system responds much stronger to the field, i.e. the steady-state magnetization grows very fast with increasing field strength. This leads to a sharp cusp-like curve, which we show to be incompatible with a thermal state. However, we find that a pair-based effective model reproduces this feature and can also match the full measurement data closely.
+In contrast, for weak disorder, i.e. high density, the behavior of the steady-state magnetization is much different. At weak field, the curve is very round which is reproduced nicely by assuming a thermal state.
 
+Thus, this experiment provides direct evidence for a pair localization transition at least at experimentally relevant timescales. However, it is possible that this is a prethermal regime only and that this signature vanishes at much later times. Testing for this experimentally will of course be very hard if not impossible at all depending on the timescale this final relaxation occurs.
+
+After the publication (cf. Section \ref{sec:cusp-round-sharp}), we additionally present a simplified model that allows for analytical computation of both the thermal and pair localized magnetization curves. While this model is not as quantitative as the model contained in the paper, it nonetheless reproduces the curves qualitatively and highlights the physical origin of the behavior at weak field more clearly.
 
 \includepdf[pages=-]{pub-Franz2022-Cusp}
 
-\subsection{Simple physical picture}
-\texttt{Cusp-round-sharp.jl}
+\subsection{Simple physical picture}\label{sec:cusp-round-sharp}
+To derive the qualitative behavior of the steady-state magnetization $\braket{M(\Omega)}$ with respect to external field $\Omega$, we use a simple two-component model where each spin is either fully polarized or fully demagnetized. We assume that a spin's final state depends solely on the ratio of the strongest coupling $J$ towards another spin and the strength of the external field $\Omega$. If the field dominates, i.e. 0$|\Omega| > J$, the spin stays polarized as it is locked by the field. Conversely, if the coupling dominates, i.e. $|\Omega| < J$, then the interactions lead to depolarization and the spin loses its magnetization. Thus in this simplified model, the only quantity determining the steady-state magnetization is the distribution of relevant couplings $P(J)$:
+\begin{equation}
+	\braket{M(\Omega)} = \int_0^{|\Omega|}\!\mathrm{d}J P(J)
+\end{equation}
 
-Two-component model: Each Spin either thermalizes/demagnetizes or stays put. Thus Magnetization is proportional to the cumulative distribution function of the relevant couplings among spins.
+In the regime of weak disorder, it only natural to assume that the strongest relevant coupling for a spin is given by the coupling to its nearest neighbor. In contrast for strong disorder where we assume the pair model to describe the dynamics, the nearest neighbor coupling usually is not the relevant coupling! Instead, we need to consider the distribution of pair couplings $P_{pair}(J)$, i.e. the distribution of couplings that are shared by spins of the same pair.
 
-Derive distribution functions for nearest neighbor and pair coupling distributions, find qualitative agreement.
-
-\cite{chavezUltraslowGrowthNumber2023}
-
-In the strong disorder limit, \ie $r_b\rightarrow 0$, spins are distributed randomly with uniform density $\rho$ in $d$ dimensional space. Fixing some spin, this gives us for the number of spins in spherical shell of size $r$ and width $\mathrm{d}r$
+To compute these coupling distributions analytically, we go to the limit of vanishing blockade radius, i.e. $r_b\rightarrow 0$, and assume that spins are distributed randomly with uniform density $\rho$ in $d$ dimensional space. Fixing some spin, this gives us for the number of spins in spherical shell of size $r$ and width $\mathrm{d}r$
 \begin{equation}\label{eq:uniform-spin-distribution}
 	w_u(r)\mathrm{d}r = d \rho \Omega_d r^{d-1}\mathrm{d}r = d\lambda (\lambda r)^{d-1}\mathrm{d}r
 \end{equation}
-where $\Omega_d = \frac{\pi^{d/2}}{\Gamma(n/2+1)}$ is the volume of a $d$-dimensional unit sphere and $\lambda^d = \rho \Omega_d$ is akin to the inverse mean distance between spins. 
+where $\Omega_d = \frac{\pi^{d/2}}{\Gamma(n/2+1)}$ is the volume of a $d$-dimensional unit sphere and $\lambda^d = \rho \Omega_d$ is akin to the inverse mean distance between spins. We use this setup to compute both the distribution of nearest neighbor coupling $P_{NN}(J)$ and the distribution of pair couplings $P_{pair}(J)$ in the following sections.
 
-\subsubsection{Nearest-neighbor Coupling Distribution $P_{NN}(J)$}
+\subsubsection{Nearest-neighbor coupling distribution $P_{NN}(J)$}
 
 The distribution of the nearest neighbor couplings can be found using a simple ansatz~\cite{chandrasekharStochasticProblemsPhysics1943}. Consider some fixed spin and the density of spin $w(r)$ at distance $r$. Then the probability $P_{NN}(r)$ of finding the nearest neighbor of that fixed spin at distance $r$ should be proportional to both the probability of having a spin in that distance and the probability of having no closer neighbor. This gives us the following integral-equation 
 \begin{align}\label{eq:nn-integral-eq}
@@ -57,7 +72,7 @@ Changing variables from distance $r$ to coupling $J=r^{-\alpha}$ yields
 \end{equation}
 where $\beta=\frac{d}{\alpha}$.
 
-\subsubsection{Distribution of Pair Couplings $P_{pair}(J)$}
+\subsubsection{Distribution of pair couplings $P_{pair}(J)$}
 %TODO clear up difference pair <-> NN?
 We can derive the distribution of pair lengths in a similar fashion to Eq.~\ref{eq:nn-integral-eq}. The key insight about the difference between a nearest neighbor and the partner of a pair in the RSRG sense is that the two partners of the pair are in some sense each other's partner. In contrast the "nearest neighbor" property does not need to be reflexive. Denoting the pair coupling distribution as $P_{pair}(J)$, we write down the respective integral equation, which is very similar to Eq.~\ref{eq:nn-integral-eq}, except that the second factor gets squared because \emph{both spins} may not be part of a smaller pair:
 
@@ -78,11 +93,11 @@ We can derive the distribution of pair lengths in a similar fashion to Eq.~\ref{
 
 This equation can be solved in the same way as Eq.~\ref{eq:nn-integral-eq} and yields:
 
+\marginline{Eq.~\ref{eq:pair-distribution} was derived by a different method for $d=3$ by former Master student Péter Kaposvári in his Master thesis~\cite{peterMasterThesis}.}
+
 \begin{align}\label{eq:pair-distribution}
 	P_{pair}(r) = \frac{w(r)}{\left(1+\int_0^r\!\mathrm{d}r' w(r')\right)^2}
 \end{align}
-
-\marginline{Eq.~\ref{eq:pair-integral-eq} was derived by a different method for $d=3$ by former Master student Péter Kaposvári in his Master thesis~\cite{peterMasterThesis}.}
 
 Employing the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.~\ref{eq:uniform-spin-distribution}) again gives us the distribution of pair lengths for uniformly distributed spins:
 
