@@ -1,7 +1,10 @@
 # Figure themeing
-function theme(; height=1, width=1, scale=1.5)
+function theme(; height=1, width=1)
+    scale = 4/3 # default pt_per_unit
+    # textwidth is 336pt so max out with 2 figures -> 335
+    width > 2 && @warn "Exceeds page width - likely not a good idea..."
     return merge(theme_latexfonts(),
-	    Theme(fontsize=9*scale, size=((35+150*width)*scale,(35+130*height)*scale), pt_per_unit=1/scale,
+	    Theme(fontsize=10*scale, size=((35+150*width)*scale,(35+130*height)*scale),
 		    figure_padding=(1,7,1,1),
 		    Axis=(; xtickalign=1, ytickalign=1, xscale=identity,
 			    backgroundcolor=bgcolor),

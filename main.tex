@@ -62,15 +62,24 @@
 \addbibresource[label=notownpubs]{Bibliography.bib}
 \addbibresource[label=ownpubs]{Bibliography-MyPublications.bib}
 
+
 %********************************************************************
-% Drafting commands
+% PDF inclusion for cumulative thesis (preserves links!)
 %*******************************************************
-\newcommand{\ifdraft}[1]{#1}
-\ifdraft{}
 
 \usepackage{pdfpages}
 \usepackage{newpax}
 \newpaxsetup{addannots=true}
+
+%********************************************************************
+% Drafting commands
+%*******************************************************
+
+\makeatletter
+
+\newcommand\thefontsize{{Fontsize:\f@size pt }}
+
+\makeatother
 
 %********************************************************************
 % Hyphenation

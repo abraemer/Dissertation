@@ -25,11 +25,12 @@ After the publication (cf. Section \ref{sec:cusp-round-sharp}), we additionally 
 \includepdf[pages=-]{pub-Franz2022-Cusp}
 
 \subsection{Simple physical picture}\label{sec:cusp-round-sharp}
-To derive the qualitative behavior of the steady-state magnetization $\braket{M(\Omega)}$ with respect to external field $\Omega$, we use a simple two-component model where each spin is either fully polarized or fully demagnetized. We assume that a spin's final state depends solely on the ratio of the strongest coupling $J$ towards another spin and the strength of the external field $\Omega$. If the field dominates, i.e. 0$|\Omega| > J$, the spin stays polarized as it is locked by the field. Conversely, if the coupling dominates, i.e. $|\Omega| < J$, then the interactions lead to depolarization and the spin loses its magnetization. Thus in this simplified model, the only quantity determining the steady-state magnetization is the distribution of relevant couplings $P(J)$:
-\begin{equation}
-	\braket{M(\Omega)} = \int_0^{|\Omega|}\!\mathrm{d}J P(J)
+To derive the qualitative behavior of the steady-state magnetization $\braket{M(\Omega)}$ with respect to external field $\Omega$, we use a simple two-component model where each spin is either fully polarized or fully demagnetized. We assume that a spin's final state depends solely on the ratio of the strongest coupling $J$ towards another spin and the strength of the external field $\Omega$. If the field dominates, i.e. $|\Omega| > J$, the spin stays polarized as it is locked by the field. Conversely, if the coupling dominates, i.e. $|\Omega| < J$, then the interactions lead to depolarization and the spin loses its magnetization. Thus in this simplified model, the only quantity determining the steady-state magnetization is the distribution of relevant couplings $P(J)$:
+\begin{equation}\label{eq:Cusp-simple-model-magnetization}
+	\braket{M(\Omega)} = \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J P(J)
 \end{equation}
 
+%TODO rephrase and use P_NN(J) as well
 In the regime of weak disorder, it only natural to assume that the strongest relevant coupling for a spin is given by the coupling to its nearest neighbor. In contrast for strong disorder where we assume the pair model to describe the dynamics, the nearest neighbor coupling usually is not the relevant coupling! Instead, we need to consider the distribution of pair couplings $P_{pair}(J)$, i.e. the distribution of couplings that are shared by spins of the same pair.
 
 To compute these coupling distributions analytically, we go to the limit of vanishing blockade radius, i.e. $r_b\rightarrow 0$, and assume that spins are distributed randomly with uniform density $\rho$ in $d$ dimensional space. Fixing some spin, this gives us for the number of spins in spherical shell of size $r$ and width $\mathrm{d}r$
@@ -44,7 +45,7 @@ The distribution of the nearest neighbor couplings can be found using a simple a
 \begin{align}\label{eq:nn-integral-eq}
 	P_{NN}(r) = w(r)*\left(1-\int_0^r \mathrm{d}r' P_{NN}(r')\right)
 \end{align}
-which can be solved straight-forwardly and yields
+which can be solved straight-forwardly by noting that it has the form $f' = -w f$ and using separation of variables. The solution reads:
 
 \begin{equation}\label{eq:nn-distribution}
 	P_{NN}(r) = w(r)\exp\left(-\int_0^r \!\mathrm{d}r' w(r')\right)\quad.
@@ -58,6 +59,7 @@ Plugging in the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.
 
 %\marginline{Eq.~\ref{eq:weibull-distribution} is a so-called Weibull distribution}
 
+\marginline{The change of variables also needs to transform the measure, i.e. we transform $P(r)\mathrm{d}r \!\rightarrow\! P(J)\mathrm{d}J$}
 Changing variables from distance $r$ to coupling $J=r^{-\alpha}$ yields
 %
 %\begin{align}
@@ -67,7 +69,7 @@ Changing variables from distance $r$ to coupling $J=r^{-\alpha}$ yields
 %
 %The sign of the Jacobi-Determinant is to be neglect and we obtain:
 %
-\begin{equation}
+\begin{equation}\label{eq:P-NN-J}
 	P_{NN}(J) = \beta\lambda^d J^{-\beta-1} \exp\left(-\lambda^d J^{-\beta}\right)
 \end{equation}
 where $\beta=\frac{d}{\alpha}$.
@@ -109,10 +111,40 @@ Employing the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.~\
 
 Changing to distance $r$ to coupling $J=r^{-\alpha}$ yields:
 
-\begin{equation}
-	w_P(J) = \frac{\beta\lambda^d J^{-\beta-1}}{\left(1+\lambda^{d}J^{-\beta}\right)^2}
+\begin{equation}\label{eq:P-pair-J}
+	P_{pair}(J) = \frac{\beta\lambda^d J^{-\beta-1}}{\left(1+\lambda^{d}J^{-\beta}\right)^2}
 \end{equation}
 
+\subsubsection{Analytical steady-state magnetization}
+
+\begin{figure}[htb]
+	\centering
+	%TODO maybe integrate the curves from CUSP paper for better comparison?
+	\includegraphics{part1/analytical_cusp}
+	\includegraphics{part1/analytical_cusp_inset} 	%TODO decide on figure
+	\caption{Steady-state magnetization curves of the simple two-component model using the same color scheme as Fig.~2 (d) and (e) of \cite{franzEmergentPairLocalization2022}. Parameters, $\alpha$ and $d$ correspond to (a) Fig.~2 (b) Fig.~4.
+	The inset show a zoom around $\Omega=0$ to highlight the qualitative difference between the curves.
+	}
+	\label{fig:analytical-cusp}
+\end{figure}
+
+With both the distribution of nearest-neighbor coupling $P_{NN}(J)$ (Eq.~\ref{eq:P-NN-J}) and pair coupling distribution $P_{pair}(J)$ (Eq.~\ref{eq:P-pair-J}), we can compute the steady-state magnetization of our simple model by using Eq.~\ref{eq:Cusp-simple-model-magnetization}:
+\begin{align}
+	M_{NN}(\Omega) &= \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J\ P_{NN}(J) = \frac{1}{2}\exp(-\lambda^d |\Omega|^{-\beta})\\
+	M_{pair}(\Omega) &= \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J\ P_{pair}(J) = \frac{1}{2+2\lambda^{d}|\Omega|^{-\beta}}
+\end{align}
+
+The resulting curves (cf. Fig.~\ref{fig:analytical-cusp}) show the same qualitative features as their counterparts in \cite{franzEmergentPairLocalization2022}. Thus, this simple model gives us insight in the key mechanism behind the qualitative change of the steady-state magnetization behavior: At weak field $|\Omega|\ll 1$, the magnetization is determined by the weakest interactions $J<|\Omega|\ll 1$ which stem from long distances $r \gg 1$. For nearest neighbors, the distribution of distances is suppressed exponentially $\propto \exp(-r^d)$ (cf. Eq.~\ref{eq:weibull-distribution}), which creates the very smooth, round shape at weak field. Conversely, if the relevant lengths are given by the pairing procedure, the exponential suppression is weakened to an algebraic decay $\propto r^{-d-1}$. Intuitively, this is because while with increasing distance $r$ the number of potential partners increases, it also becomes less likely that they are still available. This competition then leads to a much slower decay of the relevant lengths.
+
+\subsubsection{Additional remarks}
+\begin{itemize}
+	\item Behavior around 0: Both non-analytic. $P_{NN}$ very round, all derivatives vanish. $P_{pair}$ non-analytic for $\beta\leq1$ i.e. $d \leq \alpha$.
+	\item Pairs' magnetization actually follow not a theta function but a Lorentzian (see \cite{franzObservationUniversalRelaxation2023}). But this does not change the characteristics (plot maybe)
+	
+\end{itemize}
+
+
+A few remarks:
 For $J\rightarrow 0$ this gives the limits:
 
 \begin{equation}
@@ -126,11 +158,3 @@ The Cusp thus acquires the form:
 \end{equation}
 
 Note: For $\alpha > d$ this predicted cusp gets ultra sharp as the first derivative diverges at $0$!
-
-\begin{figure}[ht]
-	\centering
-	%TODO maybe integrate the curves from CUSP paper for better comparison?
-	\includegraphics{part1/analytical_cusp}
-	\caption{Some sample caption text to compare the size to with a large M}
-	\label{fig:analytical-cusp}
-\end{figure}
