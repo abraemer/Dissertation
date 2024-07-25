@@ -117,18 +117,20 @@ Changing to distance $r$ to coupling $J=r^{-\alpha}$ yields:
 
 \subsubsection{Analytical steady-state magnetization}
 
+\FIXME{maybe integrate the curves from CUSP paper for better comparison?}
+
 \begin{figure}[htb]
 	\centering
-	%TODO maybe integrate the curves from CUSP paper for better comparison?
-	\includegraphics{part1/analytical_cusp}
-	\includegraphics{part1/analytical_cusp_inset} 	%TODO decide on figure
+%	\includegraphics{part1/analytical_cusp}
+	\includegraphics{part1/analytical_cusp_inset}
 	\caption{Steady-state magnetization curves of the simple two-component model using the same color scheme as Fig.~2 (d) and (e) of \cite{franzEmergentPairLocalization2022}. Parameters, $\alpha$ and $d$ correspond to (a) Fig.~2 (b) Fig.~4.
 	The inset show a zoom around $\Omega=0$ to highlight the qualitative difference between the curves.
+	% TODO
 	}
 	\label{fig:analytical-cusp}
 \end{figure}
 
-With both the distribution of nearest-neighbor coupling $P_{NN}(J)$ (Eq.~\ref{eq:P-NN-J}) and pair coupling distribution $P_{pair}(J)$ (Eq.~\ref{eq:P-pair-J}), we can compute the steady-state magnetization of our simple model by using Eq.~\ref{eq:Cusp-simple-model-magnetization}:
+Having derived both the distribution of nearest-neighbor coupling $P_{NN}(J)$ (Eq.~\ref{eq:P-NN-J}) and pair coupling distribution $P_{pair}(J)$ (Eq.~\ref{eq:P-pair-J}), we can compute the steady-state magnetization of our simple model by using Eq.~\ref{eq:Cusp-simple-model-magnetization}:
 \begin{align}
 	M_{NN}(\Omega) &= \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J\ P_{NN}(J) = \frac{1}{2}\exp(-\lambda^d |\Omega|^{-\beta})\\
 	M_{pair}(\Omega) &= \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J\ P_{pair}(J) = \frac{1}{2+2\lambda^{d}|\Omega|^{-\beta}}
@@ -136,25 +138,47 @@ With both the distribution of nearest-neighbor coupling $P_{NN}(J)$ (Eq.~\ref{eq
 
 The resulting curves (cf. Fig.~\ref{fig:analytical-cusp}) show the same qualitative features as their counterparts in \cite{franzEmergentPairLocalization2022}. Thus, this simple model gives us insight in the key mechanism behind the qualitative change of the steady-state magnetization behavior: At weak field $|\Omega|\ll 1$, the magnetization is determined by the weakest interactions $J<|\Omega|\ll 1$ which stem from long distances $r \gg 1$. For nearest neighbors, the distribution of distances is suppressed exponentially $\propto \exp(-r^d)$ (cf. Eq.~\ref{eq:weibull-distribution}), which creates the very smooth, round shape at weak field. Conversely, if the relevant lengths are given by the pairing procedure, the exponential suppression is weakened to an algebraic decay $\propto r^{-d-1}$. Intuitively, this is because while with increasing distance $r$ the number of potential partners increases, it also becomes less likely that they are still available. This competition then leads to a much slower decay of the relevant lengths.
 
-\subsubsection{Additional remarks}
-\begin{itemize}
-	\item Behavior around 0: Both non-analytic. $P_{NN}$ very round, all derivatives vanish. $P_{pair}$ non-analytic for $\beta\leq1$ i.e. $d \leq \alpha$.
-	\item Pairs' magnetization actually follow not a theta function but a Lorentzian (see \cite{franzObservationUniversalRelaxation2023}). But this does not change the characteristics (plot maybe)
-	
-\end{itemize}
+\subsubsection{Discussion}
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics{part1/analytical_cusp_comparison_lorentz}
+	\caption{Comparison of the two-component model (dashed lines) with another model where the constituents' magnetization is given by a Lorentzian (solid lines). (a) steady-state magnetization of the constituent. (b) predictions of both model for $\alpha=d=3$ [same parameters as Fig.~\ref{fig:analytical-cusp}(a)].
+	}
+	\label{fig:analytical-cusp-comparison-lorentz}
+\end{figure}
 
-A few remarks:
-For $J\rightarrow 0$ this gives the limits:
+The two-component model developed here is of course much simpler than the mean-field used in \cite{franzEmergentPairLocalization2022} but we argue that it captures the essential physics nonetheless. The two main conceptual differences are: The mean field model considers the magnetization response of pairs, which is a Lorentzian [cf. Eq.~(C3)], and additionally solves the equations self-consistently to capture the influence of a pairs magnetization on other pairs in the vicinity. The latter is responsible an the asymmetry of the ensemble's magnetization because the induced magnetization enhances (weakens) the effective magnetic field if external field and initial polarization are aligned (anti-aligned) to each other. This essentially introduces a small scaling factor for positive field for the field relative to negative values but does not change the qualitative behavior at weak field (cf. Fig.~5 of \cite{franzEmergentPairLocalization2022}). 
 
-\begin{equation}
-	\lim_{J\rightarrow0} w_P(J) = \lim_{J\rightarrow0} \beta\lambda^{-d} J^{\beta-1} =\begin{cases}0 & d>\alpha\\ \beta\lambda^{-d} & d=\alpha\\ \infty & d<\alpha\end{cases}
+To check the effect of the Lorentzian magnetization function, we can generalize the two-component model slightly at the cost of it being no longer analytically solvable. We replace the idea of single spins that are either locked by the field or dominated by interaction by more general constituents that just follow some activation function, i.e. a function $m(\omega)$ that gives the resulting magnetization for a given ratio $\omega=\Omega/J$ of field strength $\Omega$ and relevant coupling $J$. Then the total steady-state magnetization reads
+
+\begin{equation}\label{eq:generalized-two-component-model}
+	\braket{M(\Omega)} = \frac{1}{2}\int_0^{\infty}\!\mathrm{d}J P(J)m\left(\frac{\Omega}{J}\right)
 \end{equation}
+and the two-component model is recovered with $m(\omega)=\Theta(\omega - 1)$ where $\Theta$ denotes the Heaviside function. For a pair the magnetization follows a Lorentzian curve (cf. Eq.~(C3) of \cite{franzEmergentPairLocalization2022}), which in this notation is given by $m_L(\omega) = \frac{\omega^2}{1+\omega^2}$. As Fig.~\ref{fig:analytical-cusp-comparison-lorentz} shows, this does not alter the qualitative behavior at weak external field. Thus we conclude that the observed qualitative change of the steady-state magnetization stems from a fundamental change in character of the distribution of relevant couplings.
 
-The Cusp thus acquires the form:
+%Behavior around 0: Both non-analytic. $P_{NN}$ very round, all derivatives vanish. $P_{pair}$ non-analytic for $\beta\leq1$ i.e. $d \leq \alpha$.
+%A few remarks:
+%For $J\rightarrow 0$ this gives the limits:
+%
+%\begin{equation}
+%	\lim_{J\rightarrow0} w_P(J) = \lim_{J\rightarrow0} \beta\lambda^{-d} J^{\beta-1} =\begin{cases}0 & d>\alpha\\ \beta\lambda^{-d} & d=\alpha\\ \infty & d<\alpha\end{cases}
+%\end{equation}
+%
+%The Cusp thus acquires the form:
+%
+%\begin{equation}
+%	\int_0^h\! \mathrm{d}J\ w_P(J) = \left. \frac{1}{1+\lambda^{d}J^{-\beta}}\right|_{0}^h = \frac{1}{1+\lambda^{d}h^{-\beta}}
+%\end{equation}
+%
+%Note: For $\alpha > d$ this predicted cusp gets ultra sharp as the first derivative diverges at $0$!
 
-\begin{equation}
-	\int_0^h\! \mathrm{d}J\ w_P(J) = \left. \frac{1}{1+\lambda^{d}J^{-\beta}}\right|_{0}^h = \frac{1}{1+\lambda^{d}h^{-\beta}}
-\end{equation}
 
-Note: For $\alpha > d$ this predicted cusp gets ultra sharp as the first derivative diverges at $0$!
+%\begin{figure}[htb]
+%	\centering
+%	\includegraphics{part1/analytical_cusp_alpha_small}
+%	\caption{Steady-state magnetization curves of the simple two-component model using the same color scheme as Fig.~2 (d) and (e) of \cite{franzEmergentPairLocalization2022}. Shown are two examples where $\alpha < d$.
+%	}
+%	\label{fig:analytical-cusp-alpha-small}
+%\end{figure}
+
