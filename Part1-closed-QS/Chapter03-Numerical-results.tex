@@ -1,10 +1,19 @@
 \chapter{Pair localization transition}
 
-Natural first question: Does this system exhibit a localization transition? If so: what are the conserved quantities? To tackle this question, we study the level-spacing ration, the half-chain entanglement entropy of eigenstates, Thouless parameters with respect to different local observables and participation ratios with different bases.
+In this chapter, we address the question: Does the model defined in Eq.~\ref{eq:heisenberg-hamiltonian} exhibit a localization crossover for sufficiently strong disorder? To this end, we compute the level-spacing ratio, Thouless parameter and half-chain entropy to detect the crossover into a localized regime and use the shot-to-shot variance of the half-chain entropy to perform finite size scaling of the crossover's location. Indeed, all indicators confirm the presence of a localized regime. Remarkably, the location of the crossover in this system appears to be significantly more stable than in systems with random on-site potentials. Additionally, we employ the strong disorder/real-space renormalization group (RSRG) approach to show that the quasi-conserved quantities are given by strongly interaction pairs of spins, which demonstrate numerically by computing participation ratios between the approximated and exact eigenbases.
+
+In summary, we find that for sufficiently strong disorder the complicated many-body system given by Eq.~\ref{eq:heisenberg-hamiltonian} can be well approximated by an integrable model of pairs:
+\begin{align}\label{eq:pair-model}
+	H_{pairs} =& \sum_{\langle i,j\rangle} \left(S_x^{(i)}S_x^{(j)} + S_y^{(i)}S_y^{(j)} + \Delta S_z^{(i)}S_z^{(j)}\right) \notag\\
+	+ &\sum_{\substack{\langle i,j\rangle\\\langle i',j'\rangle}} \frac{\Delta}{4}(J_{i,i'}+J_{i,j'}+J_{j,i'}+J_{j,j'})\left(S_z^{(i)}+S_z^{(j)}\right)\left(S_z^{(i')}+S_z^{(j')}\right)
+\end{align}
+Here $\sum_{\langle i,j\rangle}$ denotes a sum over specific pairs of spins in the RSRG sense. These pairs are found iteratively: One defines the two spins linked by the strongest coupling in the system to be a pair, removes them and then continues with the remaining spins until every spin is paired up. This model of pairs is validated experimentally in Chapter~\ref{ch:experimental-pairs} and proves to give very accurate results.
 
 \includepdf[pages=-]{pub-Braemer2022-Pairlocalization}
 
 \chapter{Efficient time evolution of pair localized systems}
+
+
 
 can we exploit the knowledge about the conserved quantities to make numerics more efficient?
 
