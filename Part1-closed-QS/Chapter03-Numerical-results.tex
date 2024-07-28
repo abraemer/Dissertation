@@ -1,4 +1,4 @@
-\chapter{Pair localization transition}
+\chapter{Pair localization transition}\label{ch:pair-localization-transition}
 
 In this chapter, we address the question: Does the model defined in Eq.~\ref{eq:heisenberg-hamiltonian} exhibit a localization crossover for sufficiently strong disorder? To this end, we compute the level-spacing ratio, Thouless parameter and half-chain entropy to detect the crossover into a localized regime and use the shot-to-shot variance of the half-chain entropy to perform finite size scaling of the crossover's location. Indeed, all indicators confirm the presence of a localized regime. Remarkably, the location of the crossover in this system appears to be significantly more stable than in systems with random on-site potentials. Additionally, we employ the strong disorder/real-space renormalization group (RSRG) approach to show that the quasi-conserved quantities are given by strongly interaction pairs of spins, which demonstrate numerically by computing participation ratios between the approximated and exact eigenbases.
 
@@ -11,10 +11,12 @@ Here $\sum_{\langle i,j\rangle}$ denotes a sum over specific pairs of spins in t
 
 \includepdf[pages=-]{pub-Braemer2022-Pairlocalization}
 
-\chapter{Efficient time evolution of pair localized systems}
+\chapter{Efficient time evolution of pair localized systems}\label{ch:cTWA-paper}
 
+After having found an analytical approximation applicable at strong disorder in the preceding chapter, here we show how to utilize this knowledge to achieve an efficient numerical computation of the dynamics. The key idea is to employ the cluster truncated Wigner approximation~\cite{wurtzClusterTruncatedWigner2018}, which is a semiclassical simulation method that solves the dynamics of only small clusters of spins exactly and treats interactions among clusters on a mean-field level. By using the pairing procedure of Chapter~\ref{ch:pair-localization-transition} to define the clusters, we find that our method is highly accurate not only at strong disorder and short-range interactions but also in regimes of comparatively weak disorder and long-range interactions. 
+Thus, our method represents a numerically efficient scheme to compute arbitrary dynamical quantities in these kinds of spatially disordered spin systems.
 
-
-can we exploit the knowledge about the conserved quantities to make numerics more efficient?
+% In addition, we generalize the cluster truncated Wigner approximation slightly to use a discrete phase-space sampling, which offers a minor boost in performance compared to continuous sampling and simplifies the implementation slightly since clusters of single spins no longer represent a special case. 
+%TODO also mention the sampling? Not really important in the context of this work though
 
 \includepdf[pages=-]{pub-Braemer2024-cTWA}
