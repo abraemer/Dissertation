@@ -52,7 +52,7 @@
 \newcommand{\myTitle}{
 Quantum Dynamics of Disordered Many-body Spin Systems\xspace}
 \newcommand{\mySubtitle}{\xspace}
-\newcommand{\myDegree}{Doktor-Ingenieur (Dr.-Ing.)\xspace}
+\newcommand{\myDegree}{Dr. rer. nat)\xspace}
 \newcommand{\myName}{Adrian Lukas Braemer\xspace}
 \newcommand{\myProf}{Put name here\xspace}
 \newcommand{\myOtherProf}{Put name here\xspace}
@@ -188,7 +188,9 @@ Quantum Dynamics of Disordered Many-body Spin Systems\xspace}
 % 6. Last calls before the bar closes
 % ****************************************************************************************************
 \usepackage{ragged2e}
-\usepackage{braket}
+%\usepackage{braket}
+\usepackage{physics2}
+\usephysicsmodule{braket}
 \usepackage{amsfonts,amsthm, amssymb,bm}
 %\usepackage{amsmath}
 \usepackage{mathtools}
@@ -226,7 +228,7 @@ Quantum Dynamics of Disordered Many-body Spin Systems\xspace}
   pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},%
   pdfsubject={},%
   pdfkeywords={},%
-  pdfcreator={pdfLaTeX},%
+  pdfcreator={luaLaTeX},%
   pdfproducer={LaTeX with hyperref and classicthesis}%
 }
 

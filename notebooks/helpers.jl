@@ -1,15 +1,30 @@
 # Figure themeing
 function theme(; height=1, width=1)
-    scale = 4/3 # default pt_per_unit
+    # I now learned that I need to set this not on Figure *creation* but on *saving*
+    # so scaling here would no longer be needed. Alas figures have already been
+    # created that depend on these coordinates for the insets...
+    scale = 4/3 # compensate default pt_per_unit = 0.75
+    
     # textwidth is 336pt so max out with 2 figures -> 335
-    width > 2 && @warn "Exceeds page width - likely not a good idea..."
+    height_units = (35+130*height)*scale
+    width_units = (35+150*min(2,width))*scale
+    # Note about fonts:
+    # TeX Gyre Pagella matches the body font, but there is no option to exchange the math font currently
+    # So overwrite the normal font with Computer Modern to make the graphic itself more harmonious
     return merge(theme_latexfonts(),
-	    Theme(fontsize=10*scale, size=((35+150*width)*scale,(35+130*height)*scale),
-		    figure_padding=(1,7,1,1),
-		    Axis=(; xtickalign=1, ytickalign=1, xscale=identity,
-			    backgroundcolor=bgcolor),
-		    Label=(; font=:bold,
-			    halign=:left, valign=:top)))
+        Theme(
+	        fontsize=10*scale,
+            fonts = (; 
+                regular="TeX Gyre Pagella",
+		        bold="TeX Gyre Pagella Bold",
+		        italic="TeX Gyre Pagella Italic",
+		        bolditalic="TeX Gyre Pagella Bold Italic"),
+	        size = (width_units, height_units),
+		    figure_padding = (1,7,1,1),
+		    Axis = (; xtickalign=1, ytickalign=1, xscale=identity),
+		    Label = (; font=:bold,
+			    halign=:left, valign=:top))
+		)
 end
 
 # save figures

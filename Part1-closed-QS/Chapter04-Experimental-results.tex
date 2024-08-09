@@ -2,7 +2,7 @@
 
 In this chapter, we apply the previously derived effective model of pairs to model and interpret experimental results from a Rydberg-based quantum simulator. While the experiment is limited to global control and readout, we make great use of its ability to implement models with different anisotropy and various density (which translates to disorder strength).
 
-We find the pair model to yield  an excellent agreement with the observed behavior explaining both the relaxation dynamics and rescaling thereof~\cite{franzObservationUniversalRelaxation2023} as well as the dependence of the steady state magnetization on the strength of the transverse field~\cite{franzEmergentPairLocalization2022}.
+We find the pair model to yield  an excellent agreement with the observed behavior explaining both the relaxation dynamics and rescaling thereof~\cite{franzObservationAnisotropyindependentMagnetization2024} as well as the dependence of the steady state magnetization on the strength of the transverse field~\cite{franzEmergentPairLocalization2022}.
 
 
 \section{Anisotropy-independent relaxation dynamics}
@@ -25,9 +25,9 @@ Subsequently (cf. Section \ref{sec:cusp-round-sharp}), we present a simplified a
 \includepdf[pages=-]{pub-Franz2022-Cusp}
 
 \subsection{Simple physical picture}\label{sec:cusp-round-sharp}
-To derive the qualitative behavior of the steady-state magnetization $\braket{M(\Omega)}$ with respect to external field $\Omega$, we use a simple two-component model where each spin is either fully polarized or fully demagnetized. We assume that a spin's final state depends solely on the ratio of the strongest coupling $J$ towards another spin and the strength of the external field $\Omega$. If the field dominates, i.e. $|\Omega| > J$, the spin stays polarized as it is locked by the field. Conversely, if the coupling dominates, i.e. $|\Omega| < J$, then the interactions lead to depolarization and the spin loses its magnetization. Thus in this simplified model, the only quantity determining the steady-state magnetization is the distribution of relevant couplings $P(J)$:
+To derive the qualitative behavior of the steady-state magnetization $\braket[1]{M(\Omega)}$ with respect to external field $\Omega$, we use a simple two-component model where each spin is either fully polarized or fully demagnetized. We assume that a spin's final state depends solely on the ratio of the strongest coupling $J$ towards another spin and the strength of the external field $\Omega$. If the field dominates, i.e. $|\Omega| > J$, the spin stays polarized as it is locked by the field. Conversely, if the coupling dominates, i.e. $|\Omega| < J$, then the interactions lead to depolarization and the spin loses its magnetization. Thus in this simplified model, the only quantity determining the steady-state magnetization is the distribution of relevant couplings $P(J)$:
 \begin{equation}\label{eq:Cusp-simple-model-magnetization}
-	\braket{M(\Omega)} = \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J P(J)
+	\braket[1]{M(\Omega)} = \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J P(J)
 \end{equation}
 
 %TODO rephrase and use P_NN(J) as well
@@ -153,7 +153,7 @@ The two-component model developed here is of course much simpler than the mean-f
 To check the effect of the Lorentzian magnetization function, we can generalize the two-component model slightly at the cost of it being no longer analytically solvable. We replace the idea of single spins that are either locked by the field or dominated by interaction by more general constituents that just follow some activation function, i.e. a function $m(\omega)$ that gives the resulting magnetization for a given ratio $\omega=\Omega/J$ of field strength $\Omega$ and relevant coupling $J$. Then the total steady-state magnetization reads
 
 \begin{equation}\label{eq:generalized-two-component-model}
-	\braket{M(\Omega)} = \frac{1}{2}\int_0^{\infty}\!\mathrm{d}J P(J)m\left(\frac{\Omega}{J}\right)
+	\braket[1]{M(\Omega)} = \frac{1}{2}\int_0^{\infty}\!\mathrm{d}J P(J)m\left(\frac{\Omega}{J}\right)
 \end{equation}
 and the two-component model is recovered with $m(\omega)=\Theta(\omega - 1)$ where $\Theta$ denotes the Heaviside function. For a pair the magnetization follows a Lorentzian curve (cf. Eq.~(C3) of \cite{franzEmergentPairLocalization2022}), which in this notation is given by $m_L(\omega) = \frac{\omega^2}{1+\omega^2}$. As Fig.~\ref{fig:analytical-cusp-comparison-lorentz} shows, this does not alter the qualitative behavior at weak external field. Thus we conclude that the observed qualitative change of the steady-state magnetization stems from a fundamental change in character of the distribution of relevant couplings.
 

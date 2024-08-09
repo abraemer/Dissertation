@@ -44,6 +44,7 @@
 % Note: Make all your adjustments in here
 %*******************************************************
 \input{classicthesis-config}
+\usepackage{physics2}
 %TODO unicode-math?
 
 %********************************************************************
@@ -57,7 +58,8 @@
 
 % Use capital roman letters for own publications
 \def\blx@numAlph#1{%
-\ifcase#1\relax\blx@warning@entry{Value out of range}\number#1\or   A\or B\or C\or D\or E\or F\or G\or H\or I\or J\or K\or L\or M\or   N\or O\or P\or Q\or R\or S\or T\or U\or V\or W\or X\or Y\or Z\else   \blx@warning@entry{Value out of range}\number#1\fi} \makeatother  \DeclareFieldFormat{labelnumber}{\ifkeyword{int}{\footnotesize\mknumAlph{#1}}{#1}}
+\ifcase#1\relax\blx@warning@entry{Value out of range}\number#1\or   A\or B\or C\or D\or E\or F\or G\or H\or I\or J\or K\or L\or M\or   N\or O\or P\or Q\or R\or S\or T\or U\or V\or W\or X\or Y\or Z\else   \blx@warning@entry{Value out of range asdfs}\number#1\fi} \makeatother  \DeclareFieldFormat{labelnumber}{\ifkeyword{int}{\footnotesize\mknumAlph{#1}}{#1}}
+
 
 \addbibresource[label=notownpubs]{Bibliography.bib}
 \addbibresource[label=ownpubs]{Bibliography-MyPublications.bib}
@@ -83,9 +85,9 @@
 \makeatother
 
 %********************************************************************
-% Hyphenation
+% Custom commands
 %*******************************************************
-%\hyphenation{put special hyphenation here}
+\newcommand{\bbone}{\mathds{1}}
 
 \begin{document}
 \frenchspacing
