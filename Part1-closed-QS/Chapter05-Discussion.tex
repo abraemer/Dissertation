@@ -1,18 +1,41 @@
 \chapter{Conclusion}
 %Discussion&Outlook
-In Part 1
+In Part 1 of this thesis, we studied long-range Heisenberg models subject to spatial disorder through the lens of many-body localization. We found that this type of disorder indeed leads to a MBL-like phase in small systems. In this regime, the dynamics is governed by the presence of quasi-local, conserved quantities, which are made up of pairs of strongly interacting spins. This result, when combined with cTWA, leads to a very efficient and accurate method to calculate the time evolution of observables. We showed two experimental signatures that we traced back to pairs being responsible for the dynamics and thus corroborated the model's applicability and predictive power in real-world scenarios.
 
-\section{OTOCs}
-define, some examples
+Of course an experiment can only offer data on finite times and finite system sizes and thus the big question of the existence of MBL in power-law systems~\cite{yaoManyBodyLocalizationDipolar2014,burinLocalizationRandomXY2015,burinManybodyDelocalizationStrongly2015,nandkishoreManyBodyLocalized2017} or even in general cannot be answered~\cite{deroeckStabilityInstabilityDelocalization2017,morningstarAvalanchesManybodyResonances2022,longPhenomenologyPrethermalManyBody2023,scoccoThermalizationPropagationFront2024}. However, we have shown that at least at experimentally accessible timescales MBL can be a very useful perspective on the dynamics even in $d=\alpha=3$. Since we have seen that the experiment can access both thermalizing regime and the localized regime (cf.~\cite{franzEmergentPairLocalization2022}), we can use it to locate the critical disorder strength and perform finite size scaling. Thus we can check experimentally both the presence of a \emph{prethermal} MBL regime (cf.~\cite{longPhenomenologyPrethermalManyBody2023}) and the drift of the crossover. Usually in models with on-site disorder, the crossover shows significant drift (see e.g.~\cite{luitzManybodyLocalizationEdge2015}) which is absent in the model studied here (see Fig.~5 of~\cite{braemerPairLocalizationDipolar2022}).  
 
-A key prerequisite for measuring OTOCs is the ability to reverse the flow of time within the experiment. This was demonstrated for the specific Rydberg platform in Heidelberg in a  very recent publication~\cite{geierTimereversalDipolarQuantum2024}.
+Due to experimental limitations, so far we only probed the global magnetization, which the pair model describes sufficiently accurate. In order to test its range of validity and shed more light on the properties of the system, it would be interesting to study more complex observables.
+One direction for future developments is the measurement of out-of-time-order correlators (OTOC) written as
+\begin{equation}
+	F(t) = \braket[1]{W^\dagger(t)V^\dagger W(t)V}.
+\end{equation}
+Here $W$ and $V$ are unitary operators that usually act locally. Then the OTOC provides information how much \emph{information} has been exchanged between the locations $W$ and $V$ act on~\cite{chenOutTimeOrder2017,swingleUnscramblingPhysicsOutoftimeorder2018,luitzEmergentLocalitySystems2019,xuScramblingDynamicsOutofTimeOrdered2024}. Thus OTOCs carry allow for a detailed diagnostic of the thermalization process (or lack thereof). This appears to be true even for OTOCS of global observables~\cite{lozano-negroGlobalOutTime2024}. However, measuring OTOCs is not an easy task since they generally require reversing the arrow of time for the system. While involved this can be achieved robustly by changing the states that encode the spin as demonstrated recently~\cite{geierTimereversalDipolarQuantum2024}. Another proposal based in Floquet Hamiltonian engineering is also in preparation~\cite{muellenbachOTOC}. 
+% These methods also open the wide field of echo protocols
 
-\cite{muellenbachOTOC}
+Addressing the question of the presence of MBL in systems with power-law interaction on the more theoretical side, one could extend RSRG-X to calculate higher order corrections of the pair model, which to our knowledge was not done so far. This extension owes to the fact that in power-law interacting systems the base Hamiltonian already contains interactions among spins that belong to different pairs. As such performing the iterative elimination that RSRG-X prescribes, implicitly assumes that the pair couplings also form a strong hierarchy, which is generally not true. Thus, one should eliminate all pairs simultaneously to obtain a new interactions among the pairs. Preliminary results indicate that when starting from a XX model ($\Delta=0$), this effective model of pairs assumes XXZ form, similar to a calculation by Burin~\cite{burinLocalizationRandomXY2015}. However, the simple interpretation of an ensemble of pairs is lost, as this effective model depends on the choice of the sectors of the pairs and thus for $N_p$ pairs there are $2^{N_p}$ different copies, similar to the problem with RSRG-t described in~\cite{monthusStrongDisorderRenormalization2018}. Interestingly, it could be that this picture can be reconciled with the iterative pairs criterion from~\cite{yaoManyBodyLocalizationDipolar2014} because the states described can be found in specific copies. This implies that there are eigenstates which entangle arbitrarily distant sites. Conversely, choosing an entangled pair state for each pair results in very weak effective hopping couplings and thus there are also states that are very to product states between pairs. It is hard to say what properties a typical choice would show. To summarize, it seems that considering effective pair-pair interactions gives rise to both states with long-range entanglement and localized states. This contradicts the idea of a global set of conserved quantities and thus would rule out MBL for these systems in a strict sense. Yet, it would also show that relaxation dynamics likely feature a strong hierarchy of timescales.
+%When RSRG-X was developed in nearest neighbor interacting systems, perturbation theory was applied during the elimination to ensure that the spin chain stays connected. In other words, the spins adjacent to the eliminated pair experience a shared interaction mediated by fluctuations of the eliminated pair. 
+% RSRG-X eliminates each coupling iteratively by freezing out the participating spins and thus makes the implicite assumption that each eliminated pair coupling is also much stronger than the next. 
+
+On the more methodological side, 
+%This allows for more detailed statements about the nature of information spreading: In thermalizing systems $F(t)$ should drop quickly to its minimal value dictated by symmetries and system size. Conversely, in localized systems A recent 
+%Thus the OTOC gives access to 
+%are a quite sensitive probe of the thermalization properties and can distinguish different forms of relaxation behavior
+
+
+
+%\section{OTOCs}
+%define, some examples
+%
+%A key prerequisite for measuring OTOCs is the ability to reverse the flow of time within the experiment. This was demonstrated for the specific Rydberg platform in Heidelberg in a  very recent publication~\cite{geierTimereversalDipolarQuantum2024}.
+
+
 
 \section{Disorder-averaged, effective time evolution}
 
-\section{?Limitations of RSRG?}
-\cite{burinLocalizationRandomXY2015}
+\cite{erpeldingSymmetries}
+
+%\section{?Limitations of RSRG?}
+%\cite{burinLocalizationRandomXY2015}
 
 \section{Phase-diagram with integer distance statistics}
 
