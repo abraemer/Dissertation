@@ -1,32 +1,80 @@
 %************************************************
 \chapter{Concepts: time crystals in Floquet systems}\label{ch:introduction-floquet}
 
-The second part of the thesis, switches gear and focus on the effects of spatial inhomogeneity in Floquet system, i.e. systems that undergo periodic driving. While there has been a lot of attention already for Floquet systems with disorder in the interaction part of the cycle, the influence of disorder in the drive remains largely unstudied. Before, we explore this in the following chapters, here we give a brief overview of the relevant concepts from the field of Floquet systems.
+The second part of the thesis, switches gear and focus on the effects of spatial inhomogeneity in Floquet system, i.e. systems that undergo periodic driving. While there has been a lot of attention already for Floquet systems with disorder in the interaction part of the cycle, the influence of disorder in the drive remains largely unstudied. Before, we explore this in the following chapters, here we give a brief overview of the relevant concepts from the field of Floquet systems and refer the interested reader to e.g.~\cite{eckardtColloquiumAtomicQuantum2017} for the details. This is followed by a brief summary of thermalization in Floquet systems to then focus on the phenomenon of time crystals in particular~\cite{elseFloquetTimeCrystals2016,khemaniBriefHistoryTime2019,elseDiscreteTimeCrystals2020a}.
 
-\section{Floquet systems}
-review~\cite{eckardtColloquiumAtomicQuantum2017}
+%review~\cite{eckardtColloquiumAtomicQuantum2017}
 
-time-dependent, periodic Hamiltonian -> at stroboscopic times can be modelled by time-independent Hamiltonian which is not unique but eigenenergies only defined up to mod $2pi/T$
+%time-dependent, periodic Hamiltonian -> at stroboscopic times can be modeled by time-independent Hamiltonian which is not unique but eigenenergies only defined up to mod $2pi/T$
 
-$H_F$ can in general not be calculated -> magnus expansion (convergence in high frequency limit). 
+\section{Introduction to Floquet systems}
 
+Starting with the basics, a Floquet system is a system governed by a time-dependent Hamiltonian $H(t)$ with period $T$, i.e. 
+\begin{equation}
+	H(t) = H(T+t)\quad.
+\end{equation}
+The time evolution operator evolving the initial state to some time $t$ reads formally
+\begin{equation}
+	U(t) = \mathcal{T}\exp(-i\int_0^t\!\mathrm{d}t'H(t'))
+\end{equation}
+where $\mathcal{T}\exp$ is the time-ordered exponential.
+Exploiting the periodicity, we can split the time evolution operator
+\begin{align}
+	U(t) &= \mathcal{T}\exp(-i\int_0^t\!\mathrm{d}t'H(t'))\\
+	&= U(t-nT)\left[\mathcal{T}\exp(-i\int_0^T\!\mathrm{d}t'H(t'))\right]^n\\
+	&= U(t-nT) (U_F)^n
+\end{align}
+into a $n$ application of an operator $U_F$, which advances the state a full cycle, and a \emph{micromotion} part $U(t-nT)$. So restricting the dynamics to \emph{stroboscopic} times where $t=nT$, we can understand the dynamics entirely by considering the time-independent operator
+\begin{equation}
+	U_F = \mathcal{T}\exp(-i\int_0^T\!\mathrm{d}t'H(t')) \equiv \exp(-iTH_F)
+\end{equation}
+where $H_F$ is a effective, time-independent Hamiltonian, called \emph{Floquet Hamiltonian}. There are some difficulties with this approach: First of all, $H_F$ is ill-defined because its eigenvalues are only defined $\mod 2\pi/T$. Thus they are called \emph{quasienergies}. Secondly, $H_F$ is generally infeasible to calculate and might be grossly non-local.
+
+In the following, we restrict the discussion to a typical setup where $H(t)$ consists of two parts: A part where the system undergoes dynamics according to its interactions $H_{int}$ and another part where the drive $H_{drive}$ is active and no other internal dynamics takes place:
+\begin{align}
+	H(t) &= \begin{cases}
+		H_{int} & 0 \leq t < t_{int}\\
+		H_{drive} & t_{int} \leq t < T=t_{int}+t_{d}
+	\end{cases}\\
+\Rightarrow\quad U_F &= \exp\left(-it_{d}H_{drive}\right)\exp\left(-it_{int}H_{int}\right) \label{eq:simple-floquet}
+\end{align}
+
+A simple way of approximating $H_F$ is through the \emph{Magnus expansion}, which is guaranteed to converge in the \emph{high frequency limit}, i.e. if $t_{int}\norm{H_{int}}+t_{d}\norm{H_{drive}} \ll \pi $~\cite{blanesMagnusExpansionIts2009}. In this simple case it amounts to applying the well-known Baker-Campbell-Hausdorff formula to Eq.~\ref{eq:simple-floquet}. The first few terms are given by:
+\begin{align}
+	H_F &= \sum_k H_F^{(k)}\\
+	H_F^{(1)} &= \frac{1}{T}\left(t_{int} H_{int} + t_{d}H_{drive}\right)\\
+	H_F^{(2)} &= \frac{t_{d}t_{int}}{2T} \left[H_{drive}, H_{int}\right]
+\end{align}
+A great feature is that the Magnus expansion is hermitian in every order and preserves the symmetries of the Floquet operator $U_F$.
+There exists another approach to approximate $H_F$ in case one of the participating operators is not small, which is based on a replica resummation trick~\cite{vajnaReplicaResummationBakerCampbellHausdorff2018}.
 
 \section{Thermalization in Floquet systems}
 
-Thermalization to $H_F$ similar to closed system.
+The Floquet Hamiltonian $H_F$ allows to understand the dynamics of Floquet systems in the same terms as in closed quantum systems. So when viewed at stroboscopic times, the system thermalizes in accordance to $H_F$. Since this is not a true thermal equilibrium, because it is not stable for arbitrarily long times, this is usually called (Floquet) perthermalization~\cite{moriThermalizationPrethermalizationIsolated2018}.
 
-Usually driving deposits energy into the system causing heating towards an infinite temperature state \cite{dalessioLongtimeBehaviorIsolated2014,bukovUniversalHighfrequencyBehavior2015}.
+When considering longer and longer times, higher and higher orders of the Magnus expansion become relevant leading to a slow drift of the equilibrium state. The general physical intuition is that the drive pumps energy into the system heating it up until it reaches a featureless infinite temperature state. It has been shown that the timescale this heating occurs on grows exponentially with the driving frequency $\omega\propto T^{-1}$~\cite{kuwaharaFloquetMagnusTheory2016,abaninRigorousTheoryManyBody2017,moriThermalizationPrethermalizationIsolated2018}.
 
-Prethermalization~\cite{moriThermalizationPrethermalizationIsolated2018}: In high frequency limit, there is a meta stable state given by Magnus expansion. When breakdown occurs, the systems continues heating. At high frequency, heating time grows exponentially~\cite{kuwaharaFloquetMagnusTheory2016,abaninRigorousTheoryManyBody2017,moriThermalizationPrethermalizationIsolated2018}
+%Thermalization to $H_F$ similar to closed system.
+%
+%Usually driving deposits energy into the system causing heating towards an infinite temperature state \cite{dalessioLongtimeBehaviorIsolated2014,bukovUniversalHighfrequencyBehavior2015}.
+%
+%Prethermalization~\cite{moriThermalizationPrethermalizationIsolated2018}: In high frequency limit, there is a meta stable state given by Magnus expansion. When breakdown occurs, the systems continues heating. At high frequency, heating time grows exponentially
 
 \section{Time crystals}
 
-MBL can survive driving \cite{abaninTheoryManybodyLocalization2016,burauFateAlgebraicManybody2021,sierantStabilityManybodyLocalization2023}
+However, similar to closed systems, there are exceptions to this rule.
+For example, it has been shown that a MBL interaction Hamiltonian can preserve the localization provided sufficiently fast driving~\cite{abaninTheoryManybodyLocalization2016,burauFateAlgebraicManybody2021,sierantStabilityManybodyLocalization2023}. 
+A somewhat related but conceptually different mechanism is the phenomenon dubbed "time crystal"~\cite{vonkeyserlingkAbsoluteStabilitySpatiotemporal2016,elsePrethermalPhasesMatter2017}, where the (prethermal) equilibrium state breaks the discrete time-translation symmetry given by $U_F$~\cite{khemaniBriefHistoryTime2019,elseDiscreteTimeCrystals2020a}. A prototypical example~\cite{elseFloquetTimeCrystals2016,elseDiscreteTimeCrystals2020a} is a driven MBL system, where the LIOMs $\tau_z^{(i)}\approx\sigma_z^{(i)}$ are close to $\sigma_z$ and the drive approximately flips the system about it's $x$-axis, i.e.
+\begin{align}
+	H_{int} &= \sum_i h_i \tau_z^{(i)} + \sum_{ij} J_{ij}\tau_z^{(i)}\tau_z^{(j)}+\ldots\\
+	H_{d}&=\exp(i(1-\epsilon)\pi\sum_i \sigma_x^{(i)}).
+\end{align}
+It is easy to see that at $\epsilon=0$, all the $\sigma_z^{(i)}$ are quasi-conserved in magnitude but switch their sign every period because $\sigma_x \sigma_z \sigma_x = -\tau_z$. Thus we can write
+\begin{equation}
+	U_F = X\exp(-i\sum_{ij} J_{ij}\tau_z^{(i)}\tau_z^{(j)} + \ldots )
+\end{equation}
+where $X\propto\prod_i \sigma_x$ and the exponential contains only the terms commuting with $X$. This means any $z$-basis state is (close to) an eigenstate of $U_F^2$ but not of $U_F$, which justifies the term \emph{time translation symmetry-breaking}~\cite{elseFloquetTimeCrystals2016}. The dynamics of such a state show a \emph{subharmonic response} because they oscillate with an integer multiple of the systems driving frequency.
 
-driving can induce MBL \cite{choiDynamicallyInducedManybody2018}
+Crucially, this phenomenon is stable to perturbations! Leaving the exactly soluble point at $\epsilon=0$, all of these features persist in a finite region of the parameter space. Thus time crystals truly represent an out-of-equilibrium phase of matter. Apart from the prototypical model above, there are many different scenarios where they can arise~\cite{khemaniBriefHistoryTime2019,elseDiscreteTimeCrystals2020a} and they have also been studied experimentally on a variety of platforms (e.g.~\cite{choiObservationDiscreteTimecrystalline2017,miTimeCrystallineEigenstateOrder2021,ippolitiManybodyPhysicsNISQ2021,randallManybodyLocalizedDiscrete2021}).
+	
 
-time crystal \cite{vonkeyserlingkAbsoluteStabilitySpatiotemporal2016,elsePrethermalPhasesMatter2017}, review~\cite{khemaniBriefHistoryTime2019,elseDiscreteTimeCrystals2020a}
-experiment~\cite{choiObservationDiscreteTimecrystalline2017}
-
-features:
- - \emph{phase}, i.e. not fine-tuned, extended parameter region
