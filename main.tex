@@ -36,15 +36,19 @@
     \WarningFilter{scrreprt}{Usage of package `titlesec'}
     %\WarningFilter{scrreprt}{Activating an ugly workaround}
     \WarningFilter{titlesec}{Non standard sectioning command detected}
-\documentclass[ twoside,openright,titlepage,numbers=noenddot,%1headlines,
+\documentclass[ %twoside,openright,titlepage,BCOR=5mm,
+				numbers=noenddot,%1headlines,
                 headinclude,footinclude,cleardoublepage=empty,abstract=on,
-                BCOR=5mm,paper=a4,fontsize=11pt]{scrreprt}
+                paper=a4,fontsize=11pt]{scrreprt}
 
 %********************************************************************
 % Note: Make all your adjustments in here
 %*******************************************************
 \input{classicthesis-config}
-\usepackage{physics2}
+
+\areaset[current]{420pt}{750pt}
+\setlength{\marginparwidth}{0em}%
+\setlength{\marginparsep}{0em}%
 %TODO unicode-math?
 
 %********************************************************************
@@ -76,14 +80,15 @@
 %********************************************************************
 % Drafting commands
 %*******************************************************
-%\usepackage{easyReview}
-\usepackage{fixmetodonotes}
+\usepackage[disabled]{fixmetodonotes}
 \makeatletter
 
 \newcommand\thefontsize{{Fontsize:\f@size pt }}
 
 \makeatother
+\renewcommand{\thepart}{\Roman{part}} % Capital roman letters
 
+%\usepackage{showframe}
 %********************************************************************
 % Custom commands
 %*******************************************************
@@ -134,7 +139,9 @@
 
 \include{Part2-Floquet/Chapter02-Metronome-spin}
 
-\include{Part2-Floquet/Chapter03-Discussion}
+\include{Part2-Floquet/Chapter03-Pair-timecrystal}
+
+\include{Part2-Floquet/Chapter04-Discussion}
 
 \part{Summary}
 \include{Chapters/Summary-and-Conclusion}

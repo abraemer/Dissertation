@@ -7,7 +7,7 @@ function theme(; height=1, width=1)
     
     # textwidth is 336pt so max out with 2 figures -> 335
     height_units = (35+130*height)*scale
-    width_units = (35+150*min(2,width))*scale
+    width_units = width <= 2 ? (35+150*width)*scale : 420*scale
     # Note about fonts:
     # TeX Gyre Pagella matches the body font, but there is no option to exchange the math font currently
     # So overwrite the normal font with Computer Modern to make the graphic itself more harmonious

@@ -61,10 +61,7 @@ Plugging in the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.
 	P_{NN}(r) = d \lambda^d r^{d-1} \exp(- \lambda^d r^d)
 \end{align}
 
-%\marginline{Eq.~\ref{eq:weibull-distribution} is a so-called Weibull distribution}
-
-\marginline{The change of variables also needs to transform the measure, i.e. we transform $P(r)\mathrm{d}r \!\rightarrow\! P(J)\mathrm{d}J$}
-Changing variables from distance $r$ to coupling $J=r^{-\alpha}$ yields
+Finally, changing variables\footnote{Note, the change of variables also needs to transform the measure, i.e. we transform $P(r)\mathrm{d}r \!\rightarrow\! P(J)\mathrm{d}J$} from distance $r$ to coupling $J=r^{-\alpha}$ yields the sought-after distribution of nearest-neighbor couplings
 %
 %\begin{align}
 %	r &= J^{-\frac{1}{\alpha}}\\
@@ -97,21 +94,18 @@ We can derive the distribution of pair lengths in a similar fashion to Eq.~\ref{
 %	\Rightarrow w_P(r) = \frac{d\mathrm{vol}_d(1)r^{d-1}}{\left(1 + \mathrm{vol}_d(1)r^d\right)^2} = \frac{d}{\lambda} \frac{\left(\frac{r}{\lambda}\right)^{d-1}}{\left( 1+\left(\frac{r}{\lambda}\right)^d\right)^2}
 %\end{align}
 
-This equation can be solved in the same way as Eq.~\ref{eq:nn-integral-eq} and yields:
-
-\marginline{Eq.~\ref{eq:pair-distribution} was derived by a different method for $d=3$ by former Master student Péter Kaposvári in his Master thesis~\cite{peterMasterThesis}.}
+This equation can be solved in the same way as Eq.~\ref{eq:nn-integral-eq} and yields
+\footnote{Eq.~\ref{eq:pair-distribution} was derived by a different method for $d=3$ by former Master student Péter Kaposvári in his Master thesis~\cite{peterMasterThesis}.}:
 
 \begin{align}\label{eq:pair-distribution}
 	P_{pair}(r) = \frac{w(r)}{\left(1+\int_0^r\!\mathrm{d}r' w(r')\right)^2}
 \end{align}
 
-Employing the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.~\ref{eq:uniform-spin-distribution}) again gives us the distribution of pair lengths for uniformly distributed spins:
+Employing the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.~\ref{eq:uniform-spin-distribution}) again gives us that the pair distances follow a \emph{log-logistic distribution} for spins of uniform density:
 
 \begin{equation}\label{eq:log-logistic-distribution}
 	P_{pair}(r) = \frac{d\lambda^d r^{d-1}}{\left(1 + \lambda^d r^d\right)^2 }
 \end{equation}
-
-\marginline{Eq.~\ref{eq:log-logistic-distribution} is called a log-logistic distribution.}
 
 Changing to distance $r$ to coupling $J=r^{-\alpha}$ yields:
 

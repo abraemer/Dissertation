@@ -555,6 +555,118 @@ with_theme(theme()) do
 	fig
 end |> save_and_display("single-spin-localization-xxz", "part1")
 
+# ╔═╡ f9119509-6e24-48ee-a1fb-71b970afc11b
+md"""
+# Pair timecrystal
+"""
+
+# ╔═╡ d1fd0411-db74-450f-bc08-21719117f99a
+function random_couplings(N; β=1)
+	# β = d/α <= 1
+	return (1 ./ rand(Xoshiro(2), N) .- 1) .^ (1/β)
+end
+
+# ╔═╡ c6c227e9-0958-4844-8295-9df5055c8cb7
+function single_pair_analytic(;t_wait, ϕ, J=1)
+	a = J*t_wait/4
+	b = ϕ
+	c = acos(cos(a)*cos(b))
+	f = sin(a)*cos(b)/sin(c)
+	n -> 0.5*(cos(a*n)*cos(c*n) + sin(a*n)*sin(c*n)*f)
+	#n -> 2/π*sin(n*(1-cos(ϕ))*π/2)/(n*(1-cos(ϕ)))
+end
+
+# ╔═╡ b7c8eb86-1182-4325-8930-14ef52cca045
+function single_pair_analytic_approx(;t_wait, ϕ, J=1)
+	# valid for ϕ<J*twait
+	a = pi/2-abs(pi/2-mod(J*t_wait/4,2pi/2))
+	b = ϕ
+	#c = acos(cos(a)*cos(b))
+	
+	#f=1
+	#f = (a < b) ? sqrt(a^2/(a^2+b^2)) : 1-b^2/2/sin(a)^2
+	#f = sin(a)*cos(b)/sin(c)
+	
+	# Δac = b^2/2*(a-π/2) # not precise enough
+	# Δac = a-c
+	#(a<b) && return n->0.5*cos(n*b)*cos(n*a) # more precise: b+a^2/2*cot(b)
+	n -> 0.5*cos(n*b^2/2*cot(a))
+end
+
+# ╔═╡ c2a2d9f4-9e30-40f6-9c84-d982298087b8
+pair_couplings = sort!(random_couplings(10000))
+
+# ╔═╡ 28716ac8-d601-4007-a0d0-1b8d28976091
+let fig = Figure()
+	ax = Axis(fig[1,1])
+	t_wait = 10
+	ϵ = 0.02
+	couplings = filter(J->π > J*t_wait/4>ϵ*π, pair_couplings)
+	hist(couplings)
+end
+	
+
+# ╔═╡ 1ff8c58e-c681-40b8-aa5c-78ea1cf54e91
+with_theme(theme(; height=2, width=3)) do
+	ncycles = 1000
+	t_wait = 10
+	ϵ = 0.02
+	ϕ = π*(1-ϵ)
+	interaction_dom_couplings = filter(J->J*t_wait/4>ϵ*π, pair_couplings)
+	κ = length(interaction_dom_couplings)/length(pair_couplings)
+
+	times = 0:ncycles
+	
+	fig = Figure()
+
+	ax1 = Axis(fig[1,1])
+	hist!(ax1, log10.(pair_couplings); bins=30, normalization=:probability)
+	vlines!(ax1, [log10(4*ϵ*π/t_wait)]; color=Makie.wong_colors()[2],
+		label=L"J\tau \geq 4\phi")
+	vspan!(ax1, log10(4*ϵ*π/t_wait), 4; color=(Makie.wong_colors()[2], 0.3))
+	vlines!(ax1, [log10(4/t_wait)]; color=:gray, linestyle=:dash,
+		label=L"4/\tau")
+	ax1.xlabel = L"pair coupling $J$"
+	ax1.ylabel = L"$P_{pair}(b_i \leq J < b_{i+1})$"
+	ax1.xticks = -3:1:3
+	ax1.xtickformat = xs -> [L"10^{%$(round(Int, x))}" for x in xs]
+	ax1.title = "Pair coupling distribution"
+	xlims!(ax1, -3.5,3.5)
+	axislegend(ax1; position=:rt)
+	
+	ax2 = Axis(fig[1,2]; xticks=([0,π/6,π/3,π/2], ["0", L"\pi/6", L"\pi/3", L"\pi/2"]))#["0",L"\frac{\pi}{6}",L"\frac{\pi}{3}",L"\frac{\pi}{2}"]))
+	hist!(ax2, mod.(interaction_dom_couplings .* t_wait ./ 4, pi/2); 
+		bins=30, normalization=:pdf,
+		color=Makie.wong_colors()[2])
+	hlines!(ax2, [2/π], color=:gray, linestyle=:dot, label=L"\frac{2}{\pi}")
+	text!(ax2, 1.4, 2/π; text=L"\frac{2}{\pi}", color=:gray)
+	ylims!(ax2, -0.05, 0.9)
+	ax2.yticks = 0:0.2:0.8
+	ax2.xlabel = L"\bar{J}\ \mathrm{mod}\ \pi/2"
+	ax2.title = "Phase-wrapped interactions"
+	ax2.ylabel = L"\mathrm{P}(\bar{J}\ \mathrm{mod}\ \pi/2\ |\ \bar{J} > \phi)"
+	
+	ax = Axis(fig[2,1:2])
+	lines!(ax, times, 
+		mean(J->single_pair_analytic(;t_wait, ϕ=π*(1-ϵ), J).(times), pair_couplings), color=:grey, alpha=0.5, label="exact")
+	lines!(ax, times, 
+		mean(J->single_pair_analytic_approx(;t_wait, ϕ=ϵ*π, J).(times), pair_couplings), label="approx. (stat. average)")
+	lines!(ax, times, @.(0.5*κ*exp(-times/2*ϵ^2*pi^2)); linestyle=:dash, linewidth=2, label=L"\kappa/2\ \exp(-n\epsilon^2/2)")
+	ylims!(ax, -0.025, 0.525)
+	ax.yticks = 0:0.1:0.5
+	ax.xticks = 0:200:ncycles
+	ax.xlabel = L"Cycle $n$"
+	ax.ylabel = L"\langle M_z(n) \rangle"
+	axislegend(ax; position=:rt)
+	text!(ax, 400, 0.4; text=L"d=\alpha,\ \epsilon=%$(round(Int,ϵ*100))%,\ \tau=%$(t_wait)J_{med}", align=(:center,:bottom))
+	
+	Label(fig[1,1,TopLeft()], "(a)")
+	Label(fig[1,2,TopLeft()], "(b)")
+	Label(fig[2,1,TopLeft()], "(c)")
+	rowgap!(fig.layout, 0)
+	fig
+end |> save_and_display("pair-model-timecrystal", "part2")
+
 # ╔═╡ Cell order:
 # ╠═fe94fe12-3e9a-11ef-3a89-7f23e9876f8e
 # ╠═be9a4606-ac35-45c2-b86f-04a886e7c6ff
@@ -632,3 +744,10 @@ end |> save_and_display("single-spin-localization-xxz", "part1")
 # ╠═a9cbbb3c-ec38-4742-8595-e4953c0a2c97
 # ╠═bec82953-b272-4c90-96be-a4147e211c28
 # ╠═0c362908-f122-4c9b-8ba1-909262cd80b4
+# ╟─f9119509-6e24-48ee-a1fb-71b970afc11b
+# ╠═d1fd0411-db74-450f-bc08-21719117f99a
+# ╠═c6c227e9-0958-4844-8295-9df5055c8cb7
+# ╠═b7c8eb86-1182-4325-8930-14ef52cca045
+# ╠═c2a2d9f4-9e30-40f6-9c84-d982298087b8
+# ╠═28716ac8-d601-4007-a0d0-1b8d28976091
+# ╠═1ff8c58e-c681-40b8-aa5c-78ea1cf54e91
