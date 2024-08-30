@@ -22,7 +22,7 @@ In contrast, for weak disorder, i.e. high density, the behavior of the steady-st
 
 Thus, this experiment provides direct evidence for a pair localization transition at least at experimentally relevant timescales. However, it is possible that this is a prethermal regime only and that this signature vanishes at much later times. Testing for this experimentally will of course be very hard if not impossible at all depending on the timescale this final relaxation occurs.
 
-Subsequently (cf. Section \ref{sec:cusp-round-sharp}), we present a simplified alternative to the mean-field model in \cite{franzEmergentPairLocalization2022} that allows for analytical computation of both the thermal and pair localized magnetization curves. While this model is not as quantitative as the mean-field model contained in the publication, it nonetheless reproduces the curves qualitatively and highlights the physical origin of the behavior at weak field more directly.
+Subsequently in \autoref{sec:cusp-round-sharp}, we present an alternative to the mean-field model in \cite{franzEmergentPairLocalization2022}. This conceptually simpler model allows for analytical computation of both the thermal and pair localized magnetization curves. While this model is not as quantitative as the mean-field model contained in the publication, it nonetheless reproduces the curves qualitatively and highlights the physical origin of the behavior at weak field more directly.
 
 \newpage
 \pdfbookmark[3]{Publication}{cusp-paper}
@@ -55,7 +55,7 @@ which can be solved straight-forwardly by noting that it has the form $f' = -w f
 	P_{NN}(r) = w(r)\exp\left(-\int_0^r \!\mathrm{d}r' w(r')\right)\quad.
 \end{equation}
 
-Plugging in the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.~\ref{eq:uniform-spin-distribution}) gives us a so-called Weibull distribution:
+Plugging in the distance distribution for uniform spin density $w_u(r)$ (cf. \autoref{eq:uniform-spin-distribution}) gives us a so-called Weibull distribution:
 
 \begin{align}\label{eq:weibull-distribution}
 	P_{NN}(r) = d \lambda^d r^{d-1} \exp(- \lambda^d r^d)
@@ -77,7 +77,7 @@ where $\beta=\frac{d}{\alpha}$.
 
 \subsubsection{Distribution of pair couplings $P_{pair}(J)$}
 %TODO clear up difference pair <-> NN?
-We can derive the distribution of pair lengths in a similar fashion to Eq.~\ref{eq:nn-integral-eq}. The key insight about the difference between a nearest neighbor and the partner of a pair in the RSRG sense is that the two partners of the pair are in some sense each other's partner. In contrast the "nearest neighbor" property does not need to be reflexive. Denoting the pair coupling distribution as $P_{pair}(J)$, we write down the respective integral equation, which is very similar to Eq.~\ref{eq:nn-integral-eq}, except that the second factor gets squared because \emph{both spins} may not be part of a smaller pair:
+We can derive the distribution of pair lengths in a similar fashion to \autoref{eq:nn-integral-eq}. The key insight about the difference between a nearest neighbor and the partner of a pair in the RSRG sense is that the two partners of the pair are in some sense each other's partner. In contrast the "nearest neighbor" property does not need to be reflexive. Denoting the pair coupling distribution as $P_{pair}(J)$, we write down the respective integral equation, which is very similar to \autoref{eq:nn-integral-eq}, except that the second factor gets squared because \emph{both spins} may not be part of a smaller pair:
 
 \begin{align}\label{eq:pair-integral-eq}
 	P_{pair}(r) = w(r)*\left(1-\int_0^r \mathrm{d}r' P_{pair}(r')\right)^2
@@ -94,14 +94,14 @@ We can derive the distribution of pair lengths in a similar fashion to Eq.~\ref{
 %	\Rightarrow w_P(r) = \frac{d\mathrm{vol}_d(1)r^{d-1}}{\left(1 + \mathrm{vol}_d(1)r^d\right)^2} = \frac{d}{\lambda} \frac{\left(\frac{r}{\lambda}\right)^{d-1}}{\left( 1+\left(\frac{r}{\lambda}\right)^d\right)^2}
 %\end{align}
 
-This equation can be solved in the same way as Eq.~\ref{eq:nn-integral-eq} and yields
-\footnote{Eq.~\ref{eq:pair-distribution} was derived by a different method for $d=3$ by former Master student Péter Kaposvári in his Master thesis~\cite{peterMasterThesis}.}:
+This equation can be solved in the same way as \autoref{eq:nn-integral-eq} and yields
+\footnote{\autoref{eq:pair-distribution} was derived by a different method for $d=3$ by former Master student Péter Kaposvári in his Master thesis~\cite{peterMasterThesis}.}:
 
 \begin{align}\label{eq:pair-distribution}
 	P_{pair}(r) = \frac{w(r)}{\left(1+\int_0^r\!\mathrm{d}r' w(r')\right)^2}
 \end{align}
 
-Employing the distance distribution for uniform spin density $w_u(r)$ (cf. Eq.~\ref{eq:uniform-spin-distribution}) again gives us that the pair distances follow a \emph{log-logistic distribution} for spins of uniform density:
+Employing the distance distribution for uniform spin density $w_u(r)$ (cf. \autoref{eq:uniform-spin-distribution}) again gives us that the pair distances follow a \emph{log-logistic distribution} for spins of uniform density:
 
 \begin{equation}\label{eq:log-logistic-distribution}
 	P_{pair}(r) = \frac{d\lambda^d r^{d-1}}{\left(1 + \lambda^d r^d\right)^2 }
@@ -115,8 +115,6 @@ Changing to distance $r$ to coupling $J=r^{-\alpha}$ yields:
 
 \subsubsection{Analytical steady-state magnetization}
 
-\FIXME{maybe integrate the curves from CUSP paper for better comparison?}
-
 \begin{figure}[htb]
 	\centering
 %	\includegraphics{part1/analytical_cusp}
@@ -128,20 +126,20 @@ Changing to distance $r$ to coupling $J=r^{-\alpha}$ yields:
 	\label{fig:analytical-cusp}
 \end{figure}
 
-Having derived both the distribution of nearest-neighbor coupling $P_{NN}(J)$ (Eq.~\ref{eq:P-NN-J}) and pair coupling distribution $P_{pair}(J)$ (Eq.~\ref{eq:P-pair-J}), we can compute the steady-state magnetization of our simple model by using Eq.~\ref{eq:Cusp-simple-model-magnetization}:
+Having derived both the distribution of nearest-neighbor coupling $P_{NN}(J)$ (cf. \autoref{eq:P-NN-J}) and pair coupling distribution $P_{pair}(J)$ (cf. \autoref{eq:P-pair-J}), we can compute the steady-state magnetization of our simple model by using \autoref{eq:Cusp-simple-model-magnetization}:
 \begin{align}
 	M_{NN}(\Omega) &= \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J\ P_{NN}(J) = \frac{1}{2}\exp(-\lambda^d |\Omega|^{-\beta})\\
 	M_{pair}(\Omega) &= \frac{1}{2}\int_0^{|\Omega|}\!\mathrm{d}J\ P_{pair}(J) = \frac{1}{2+2\lambda^{d}|\Omega|^{-\beta}}
 \end{align}
 
-The resulting curves (cf. Fig.~\ref{fig:analytical-cusp}) show the same qualitative features as their counterparts in \cite{franzEmergentPairLocalization2022}. Thus, this simple model gives us insight in the key mechanism behind the qualitative change of the steady-state magnetization behavior: At weak field $|\Omega|\ll 1$, the magnetization is determined by the weakest interactions $J<|\Omega|\ll 1$ which stem from long distances $r \gg 1$. For nearest neighbors, the distribution of distances is suppressed exponentially $\propto \exp(-r^d)$ (cf. Eq.~\ref{eq:weibull-distribution}), which creates the very smooth, round shape at weak field. Conversely, if the relevant lengths are given by the pairing procedure, the exponential suppression is weakened to an algebraic decay $\propto r^{-d-1}$. Intuitively, this is because while with increasing distance $r$ the number of potential partners increases, it also becomes less likely that they are still available. This competition then leads to a much slower decay of the relevant lengths.
+The resulting curves, shown in \autoref{fig:analytical-cusp}, show the same qualitative features as their counterparts in \cite{franzEmergentPairLocalization2022}. Thus, this simple model gives us insight in the key mechanism behind the qualitative change of the steady-state magnetization behavior: At weak field $|\Omega|\ll 1$, the magnetization is determined by the weakest interactions $J<|\Omega|\ll 1$ which stem from long distances $r \gg 1$. For nearest neighbors, the distribution of distances is suppressed exponentially $\propto \exp(-r^d)$ (cf. \autoref{eq:weibull-distribution}), which creates the very smooth, round shape at weak field. Conversely, if the relevant lengths are given by the pairing procedure, the exponential suppression is weakened to an algebraic decay $\propto r^{-d-1}$. Intuitively, this is because while with increasing distance $r$ the number of potential partners increases, it also becomes less likely that they are still available. This competition then leads to a much slower decay of the relevant lengths.
 
 \subsubsection{Discussion}
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics{part1/analytical_cusp_comparison_lorentz}
-	\caption{Comparison of the two-component model (dashed lines) with another model where the constituents' magnetization is given by a Lorentzian (solid lines). (a) steady-state magnetization of the constituent. (b) predictions of both model for $\alpha=d=3$ [same parameters as Fig.~\ref{fig:analytical-cusp}(a)].
+	\caption{Comparison of the two-component model (dashed lines) with another model where the constituents' magnetization is given by a Lorentzian (solid lines). (a) steady-state magnetization of the constituent. (b) predictions of both model for $\alpha=d=3$ [same parameters as \autoref{fig:analytical-cusp}(a)].
 	}
 	\label{fig:analytical-cusp-comparison-lorentz}
 \end{figure}
@@ -153,7 +151,7 @@ To check the effect of the Lorentzian magnetization function, we can generalize 
 \begin{equation}\label{eq:generalized-two-component-model}
 	\braket[1]{M(\Omega)} = \frac{1}{2}\int_0^{\infty}\!\mathrm{d}J P(J)m\left(\frac{\Omega}{J}\right)
 \end{equation}
-and the two-component model is recovered with $m(\omega)=\Theta(\omega - 1)$ where $\Theta$ denotes the Heaviside function. For a pair the magnetization follows a Lorentzian curve (cf. Eq.~(C3) of \cite{franzEmergentPairLocalization2022}), which in this notation is given by $m_L(\omega) = \frac{\omega^2}{1+\omega^2}$. As Fig.~\ref{fig:analytical-cusp-comparison-lorentz} shows, this does not alter the qualitative behavior at weak external field. Thus we conclude that the observed qualitative change of the steady-state magnetization stems from a fundamental change in character of the distribution of relevant couplings.
+and the two-component model is recovered with $m(\omega)=\Theta(\omega - 1)$ where $\Theta$ denotes the Heaviside function. For a pair the magnetization follows a Lorentzian curve (cf. Eq.~(C3) of \cite{franzEmergentPairLocalization2022}), which in this notation is given by $m_L(\omega) = \frac{\omega^2}{1+\omega^2}$. As \autoref{fig:analytical-cusp-comparison-lorentz} shows, this does not alter the qualitative behavior at weak external field. Thus we conclude that the observed qualitative change of the steady-state magnetization stems from a fundamental change in character of the distribution of relevant couplings.
 
 %Behavior around 0: Both non-analytic. $P_{NN}$ very round, all derivatives vanish. $P_{pair}$ non-analytic for $\beta\leq1$ i.e. $d \leq \alpha$.
 %A few remarks:

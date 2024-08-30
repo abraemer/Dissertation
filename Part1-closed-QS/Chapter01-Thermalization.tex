@@ -4,52 +4,31 @@
 
 %This chapter starts by giving an introduction in the concepts underlying thermalization in closed quantum systems (Section~\ref{sec:Thermalization-in-closed-QS}). We then discuss many-body localization (MBL) highlighting the current understanding in the literature with a specific focused on localization in bond-disordered and long-range systems (Section~\ref{sec:MBL}). Finally, we close this chapter with a short introduction of the Rydberg experiment that we use for motivating the model we study throughout this part (Section~\ref{sec:Rydberg-experiment}).
 
-\FIXME{roter Faden: These concepts are useful for the description/understanding of large quantum systems! Also revise high-level introduction with this in mind.}
+%\FIXME{roter Faden: These concepts are useful for the description/understanding of large quantum systems! Also revise high-level introduction with this in mind.}
 
-In this chapter, we give a brief overview of the relevant concepts for Part~\ref{pt:spatial-disorder} of this thesis and establish the necessary context to interpret the results. However, we'll try to be brief and only summarize the essence of the matter. The interested reader is referred to the relevant literature for the details.
-Since the distinction between thermalizing and localized systems is at the core of this part of the thesis, we start by reviewing the current understanding of the thermalization process in closed quantum systems in general and contrast this with the typical picture of how localized systems evade thermalization. In particular, we discuss localization in long-range and bond-disordered systems. We close this chapter with a high-level description of the Rydberg-based quantum simulation experiment which naturally implements the specific disordered Hamiltonian studied here.  
-%to be able to understand the difference to localized systems. This distinction is at the core of this whole part.% in Section~\ref{sec:Thermalization-in-closed-QS}.
-%Then, we discuss how disorder and the resulting many-body localization (MBL) can prohibit thermalization (cf. Section~\ref{sec:MBL}). Finally in Section~\ref{sec:Rydberg-experiment}, we give a high-level description of the Rydberg-based quantum simulation experiment and the spin model it realizes, which is a key motivation for the systems studied in this part.
-
+In this chapter, we give a brief overview of the concepts relevant for Part~\ref{pt:spatial-disorder} of this thesis and establish the necessary context to interpret the results. However, we'll try to be brief and only summarize the essence of the matter. The interested reader is referred to the relevant literature for the details.
+Since the distinction between thermalizing and localized systems is at the core of this part of the thesis, we start by reviewing the current understanding of the thermalization process in closed quantum systems in general and contrast this with the typical picture of how localized systems evade thermalization. In particular, we discuss localization in long-range and bond-disordered systems. We close this chapter with a high-level description of the Rydberg-based quantum simulation experiment which naturally implements the specific disordered Hamiltonian studied here.
 
 \section{Thermalization in closed quantum systems}
 \label{sec:Thermalization-in-closed-QS}
-The simplest picture of thermalization in a classical system is perhaps the gas in a box which initially is confined to one of the sides. Upon removing the constraint the gas quickly spreads throughout the box and soon after a new equilibrium is reached. The key features of this thermalization process are:
+The simplest picture of thermalization in a classical system is perhaps the gas in a box which initially is confined to one of the sides (cf. \autoref{fig:gas-in-box}). Upon removing the constraint, the gas quickly spreads throughout the box and soon after a new equilibrium is reached. Interestingly, we can understand this process in a purely statistical way, without knowing about the precise equations of motion. As long as the dynamics sufficiently explore the configuration space, i.e. are \emph{ergodic}, we can postulate each possible configuration to be equally likely. This already explains why we find the gas to distribute itself throughout the box: There are just overwhelmingly more configurations where the particles occupy most of the box than configurations where the particles are concentrated, i.e. most configurations are \emph{typical}. With this ansatz, we could also compute how much force we would need on average to slowly compress the gas back to one side and how much kinetic energy this process adds. Thus the presence of a thermal equilibrium grants us enormous predictive power.
+The key features of a thermal equilibrium are:
 \begin{itemize}
 	\item \emph{Loss of memory}: One cannot tell on which side of the box the gas started.
 	\item \emph{Subsystem independence}: Every patch of space appears to be thermal with the same parameters (at least sufficiently away from the boundary).
 	\item \emph{Independence of microscopic details}: The full state of the system can be described using just a few macroscopic quantities, namely in this case the total (kinetic) energy, the number of particles and the volume of the box.
 \end{itemize}
-\FIXME{Double check this list of things that there isn't something even more important missing}
-Thus making use of the fact that this system thermalizes rapidly, one can find a simple description of its state that allows to make predictions for huge systems.
 
 \begin{figure}[htb]
-	% TODO
 	\centering
-	\includegraphics[width=0.4\textwidth]{example-image-a}
-	\hfill
-	\includegraphics[width=0.4\textwidth]{example-image-a}
-	\caption{Gas in box with divider a) initial state, b) thermalized}
+	\includegraphics[]{gfx/part1/gas-in-box}
+	\caption{Gas in box. (a) Initially all particles are confined to the left. (b) At a later time the gas has spread evenly throughout the box.}
+	\label{fig:gas-in-box}
 \end{figure}
 
-
-% loss of memory of the initial conditions
-% volume law entanglement
-% thermal everywhere
-% can be described using a few macroscopic parameters corresponding to conserved quantities, e.g. energy, temperature, magnetization, ...
-% namedrop Gibbs ensemble?
-% effective tool to understand properties of large quantum systems
-
-\begin{figure}[htb]
-	% TODO
-	\centering
-	\includegraphics[width=0.8\textwidth]{example-image-a}
-	\caption{Schematic EON, EEV and a time curve, ETH?.}
-\end{figure}
-
-Since quantum systems become computationally intractable much faster than classical systems, it would be very helpful if such an approach could be applied as well. Fortunately, for many quantum systems an analogue to classical thermalization can indeed by found. 
+Since quantum systems become computationally intractable much faster than classical systems, it would be very helpful if such an approach could be applied as well. Fortunately, for many quantum systems an analogue to classical thermalization can indeed by found, which we can only sketch here.
 %However, the precise conditions under which a quantum system reaches thermal equilibrium are not fully understood and so one needs to check the validity of thermal descriptions on a case-by-case basis.
-As this is a very complex topic with many technicalities, we will restrict ourselves to a birds-eye view only. We refer the interested reader to one of the many great reviews on this topic for further details~\cite{gogolinEquilibrationThermalisationEmergence2016,dalessioQuantumChaosEigenstate2016,deutschEigenstateThermalizationHypothesis2018,moriThermalizationPrethermalizationIsolated2018}.
+We refer the interested reader to one of the many great reviews on this topic for further details~\cite{gogolinEquilibrationThermalisationEmergence2016,dalessioQuantumChaosEigenstate2016,deutschEigenstateThermalizationHypothesis2018,moriThermalizationPrethermalizationIsolated2018}.
 
 Consider some quantum system governed by a Hamiltonian $H$ which is prepared in some pure state $\ket{\psi(t)}=\ket{\psi_0}$ at $t=0$. Written in the energy eigenbasis $H\ket{k}=E_k\ket{k}$, the state at some later time $t$ can be written as
 \begin{equation}
@@ -57,7 +36,7 @@ Consider some quantum system governed by a Hamiltonian $H$ which is prepared in 
 \end{equation}
 Notably, due to the unitarity of the time evolution, the system's state at every time $t$ can be reversed to $t=0$ and thus the memory of the initial state is always preserved perfectly. This basic fact already means that we cannot expect \emph{every} observable to be captured by a thermal description of a few parameters.
 
-However, in practice it is impossible to measure e.g. the expectation value of some projector onto a highly-entangled, many-body state. So for practical applications it would be sufficient, if the expectation values of some \emph{simple observables} could be described by thermal ensembles. So suppose
+However, in practice it is impossible to measure e.g. the expectation value of some projector onto a highly-entangled, many-body state. Thus for practical applications it would be sufficient, if the expectation values of some \emph{simple observables} could be described by thermal ensembles. So suppose
 we restrict ourselves to measuring the expectation value of some \emph{local observable} $O$ which only acts on a small subsystem $S$, i.e. can be written as $O=O_S\otimes \bbone_{\bar{S}}$. Writing out the evolution of the expectation value, we see
 \begin{align}
 	\braket[1]{O(t)} &= \braket[3]{\psi(t)}{O}{\psi(t)} \\
@@ -72,24 +51,32 @@ So the fact alone that we measure a property $O$ on a subsystem makes this measu
 	&= \Tr_{\bar S} \omega
 \end{align}\label{eq:diagonal-ensemble}
 for most times $t$ under very mild conditions~\cite{reimannFoundationStatisticalMechanics2008,lindenQuantumMechanicalEvolution2009}. 
+The equilibration to this so-called diagonal ensemble $\omega$ is not yet equivalent to thermalization~\cite{dziarmagaDynamicsQuantumPhase2010,polkovnikovColloquiumNonequilibriumDynamics2011}. For one $\omega$ still requires knowledge of an extensive amount of eigenstates occupation numbers  $|c_k|^2$ and additionally the system might take very long to equilibrate as the derivation relies on the dephasing of off-diagonal elements. So in the worst case, equilibration takes up until $t_{deph} \propto 1/\delta$ where $\delta=\min_{k,k'}|E_k-E_{k'}|$ is the smallest energy gap of the Hamiltonian which generally shrinks exponentially with increasing system size. 
 
-The equilibration to this so-called diagonal ensemble $\omega$ is not yet equivalent to thermalization~\cite{dziarmagaDynamicsQuantumPhase2010,polkovnikovColloquiumNonequilibriumDynamics2011}. For one $\omega$ still requires knowledge of an extensive amount of eigenstates occupation numbers  $|c_k|^2$ and additionally the system might take very long to equilibrate as the derivation relies on the dephasing of off-diagonal elements. So in the worst case, equilibration takes up until $t_{deph} \propto 1/\delta$ where $\delta=\min_{k,k'}|E_k-E_{k'}|$ is the smallest energy gap of the Hamiltonian which generally shrinks exponentially with increasing system size. At this point new assumptions are required to arrive at thermalization. Considering the expectation value of $O$ with respect to the diagonal ensemble $\omega$
+To ensure thermalization additional assumptions are required. Considering the expectation value of $O$ with respect to the diagonal ensemble $\omega$
 \begin{equation}
 	\braket[1]{O}_{\omega} = \Tr O \omega = \sum_k |c_k|^2 \braket[3]{k}{O}{k},
 \end{equation}
-we can see that if all eigenstate expectation values $\braket[3]{k}{O}{k}$ are equal to some $\braket[3]{k}{O}{k}\approx O_{mc}$, then the precise distribution of $|c_k|^2$ is irrelevant and we have $\braket[1]{O}_{\omega} = O_{mc}$. 
-This is the core idea behind the eigenstate thermalization hypothesis (ETH)~\cite{deutschQuantumStatisticalMechanics1991,srednickiChaosQuantumThermalization1994,rigolThermalizationItsMechanism2008}: Suppose all eigenstate expectation values of a local observable are given by a slowly varying function of their respective energy, i.e. $\braket[3]{k}{O}{k}=O_{mc}(E_k)$. 
-If additionally the $c_k$ are concentrated in the spectrum around some mean $\bar{E}$, then we have indeed
+we can see that if all eigenstate expectation values $\braket[3]{k}{O}{k}$ are equal to some $\braket[3]{k}{O}{k}\approx O_{mc}$, then the precise distribution of $|c_k|^2$ is irrelevant and we have $\braket[1]{O}_{\omega} = O_{mc}$. This can be thought of the direct pendant to the typicality of microstates in classical thermalization. It seems reasonable to assume that this $O_{mc}=O_{mc}(E)$ is a smooth function of the energy because states of similar energy should be able to show wildly different properties. 
+This assumption that $\braket[3]{k}{O}{k}=O_{mc}(E_k)$ is a smooth function for all eigenstates and all local observables called eigenstate thermalization hypothesis (ETH)~\cite{deutschQuantumStatisticalMechanics1991,srednickiChaosQuantumThermalization1994,rigolThermalizationItsMechanism2008}. Of course, it appears to be a strong assumption but it is physically well motivated\footnote{There are also more mathematical motivations based on random matrix theory, see e.g.~\cite{dalessioQuantumChaosEigenstate2016}.} and indeed many systems have been shown to exhibit ETH.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics{gfx/part1/ETH-thermalization}
+	\caption{Comparison thermalizing and non-thermalizing system using a long-range Heisenberg model (cf. \autoref{eq:long-range-on-site-XXZ}) where $\Delta=0.4$,$\alpha=3$ and $h=0$. The spins are randomly positioned as seen in (a). (b) shows the eigenstate expectation values for the observable $2S_z^{(10)}$. (c) shows the eigenstate occupation numbers (binned into 100 bins) w.r.t. the domain-wall state, where the left 7 spins are $\ket{\downarrow}$ and the other 6 are $\ket{\uparrow}$. The shaded region indicates the mean energy and its variance. The time traces of this operator and initial state are shown in (d). Also shown are the respective prediction by the diagonal and microcanonical ensembles.}
+	\label{fig:ETH-thermalization}
+\end{figure}
+
+However, ETH alone is not enough to ensure thermalization, we also need to demand that the $c_k$ are concentrated in the spectrum around some mean $\bar{E}$. Then we have indeed
 \begin{align}
 	\braket[1]{O}_{\omega} = O_{mc}(\bar{E}) = \braket[1]{O}_{mc}(\bar{E}),
 \end{align}
-where $\braket[1]{O}_{mc}(\bar{E})$ denotes the microcanonical ensemble expectation value at mean energy $\bar{E}$, i.e. the average over all eigenstates within a small energy window $[E-\Delta E, E+\Delta E]$. Thus we can state that in a system fulfilling ETH all initial states with this property will thermalize and expectation values of local observables are described by the microcanonical ensemble expectation value corresponding to the mean energy of the initial state.
+where $\braket[1]{O}_{mc}(\bar{E})$ denotes the microcanonical ensemble expectation value at mean energy $\bar{E}$, i.e. the average over all eigenstates within a small energy window $[E-\Delta E, E+\Delta E]$. Physically, this restriction just means that one cannot expect extreme cases, e.g. a superposition of some state at low energy and another at high energy, to thermalize. Fortunately, these scenarios are rare. Usually, experiments initialize their systems in some reasonable state, e.g. product states with well-defined physical properties, which will also be concentrated in the spectrum due to ETH. 
 
-Now of course ETH is a strong requirement at first sight but it is physically not too unreasonable. It seems plausible for states of similar energy to also exhibit similar physical properties - at least away from any phase transition. For the same reason, it is expected that most initial states that are easily implemented experimentally, e.g. product states, should also show a reasonably small energy variance, i.e. their $|c_k|^2$ are concentrated around some energy.
+We remark that thermalization according to ETH reflects the key features of thermal equilibrium define in the beginning of this section: The precise initial state is irrelevant and the only information needed to describe its equilibrium properties is its average energy (assuming the absence of other conservation laws). In a sense ETH translates the concept of typicality from the classical world into the quantum realm by demanding that every eigenstate itself looks already thermal when probed locally. 
+% TODO dynamical perspective?
 
-\FIXME{some comments about systems where ETH was studied/fulfilled}
-
-In summary, even in closed quantum systems the late time expectation values of local/few-body observables can often be described by a thermal ensemble. In a sense, due to the strong entanglement between the measured subsystem and the rest, the system acts as its own bath. This allows one to understand a system's behavior based on just a few macroscopic parameters and thus this framework gives a lot of predictive power.
+To conclude this intro, \autoref{fig:ETH-thermalization} shows a comparison of two concrete systems where one thermalizes (blue) and one is subjected to strong disorder which can prohibit thermalization as described in the following sections. The model itself is a long-range Heisenberg model that will be studied throughout whole \autoref{pt:spatial-disorder} but the details are not relevant to recognize the striking difference between the weakly and strongly disordered cases. Panel (b) clearly shows that ETH is not fulfilled, eigenstate expectation values are highly discontinuous for the strongly disordered system. In contrast, for weak disorder they show no real energy dependence for the chosen observable (which is just the $z$-magnetization of a single spin). Similarly, but not as stark is the contrast for the eigenstate occupation numbers, i.e. the $|c_l|^2$, shown in panel (c) for the domain-wall state $\ket{\downarrow}^{\otimes 7}\ket{\uparrow}^{\otimes 6}$. This is a reasonable state and thus we can see that for weakly disordered system the eigenstate occupations cluster in the spectrum. Conversely for the strongly disordered system, they are spread roughly twice as far. Finally, these spectral properties are reflected in the time evolution of the expectation value of the chosen operator: While for thermalizing system the equilibrium value is reached quickly and agrees with the value obtained by the diagonal and microcanonical ensembles, for the non-thermal system the microcanonical prediction is very far from the actual values.
 
 % loss of memory of the initial conditions
 % volume law entanglement
@@ -117,16 +104,9 @@ This means that at sufficiently strong disorder $W>W_c$, the properties of this 
 In short, the system exhibits an emergent integrability although it appears to be a fully interacting model at first glance!
 \FIXME{This emergent integrability is probably a bit of a logical leap...}
 
-\begin{figure}[htb]
-	% TODO
-	\centering
-	\includegraphics[width=0.8\textwidth]{example-image-a}
-	\caption{Show some ETH pictures of the XXZ model with small and with large h to exemplify the difference}
-\end{figure}
-
 \subsection{L-bit picture}
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[]{part1/single-spin-localization-xxz}
 	\caption{Real-space structure of a couple of eigenstates of the XXZ chain with random on-site potentials (cf. Eq.~\ref{eq:XXZ-onsite}) in the single excitation sector with $W=15$. The exponential tails are clearly visible.}
@@ -178,6 +158,7 @@ Conceptually, these works continue the line of thought of random on-site potenti
 where the $J_{i}$ are independently drawn from some distribution. These bond-disordered models are usually tackled by the real-space renormalization group (RSRG) technique (see~\cite{igloiStrongDisorderRG2005,parameswaranEigenstatePhaseTransitions2017,igloiStrongDisorderRG2018,monthusStrongDisorderRenormalization2018} for reviews). Originally, RSRG was used to find the ground state properties of bond-disordered systems~\cite{dasguptaLowtemperaturePropertiesRandom1980,bhattScalingStudiesHighly1982,fisherRandomTransverseField1992,fisherRandomAntiferromagneticQuantum1994,fisherCriticalBehaviorRandom1995} and later generalized to also compute dynamical properties~\cite{voskManybodyLocalizationOne2013,voskDynamicalQuantumPhase2014,masonTimedependentRealspaceRenormalizationGroup2019,ruggieroQuantumInformationSpreading2022} or study excited states~\cite{pekkerHilbertGlassTransitionNew2014,vasseurQuantumCriticalityHot2015,vasseurParticleholeSymmetryManybody2016}.
 
 The general principle of the RSRG approach is to iteratively eliminate the strongest bond of the system by freezing the spins sharing this bond into one of the eigenstates of their interaction Hamiltonian and deriving new couplings for surrounding spins perturbatively. This is a good approximation, if the system is sufficiently disordered thus that the strongest bond dominates all other couplings in its vicinity. Interestingly, the elimination step \emph{increases} the disorder in the system, such that each successive elimination makes less and less error~\cite{fisherRandomAntiferromagneticQuantum1994}. Thus, the system's coupling distribution flows towards the \emph{infinite randomness fixed point} where the elimination step becomes exact and the coupling distribution converges to a power-law distribution. This line of work culminated in a general theory of the MBL transition for these one-dimensional, bond-disordered, model with nearest neighbor interactions~\cite{voskTheoryManyBodyLocalization2015}.
+
 \FIXME{More detail on elimination process? Less on IRFP? Latter is fine probably}
 
 
@@ -192,8 +173,10 @@ Generalizing nearest-neighbor, bond-disordered models to power-law interactions 
 Numerical studies in small systems confirmed the presence of a localization crossover~\cite{mohdebEntanglementPropertiesDisordered2020,mohdebExcitedEigenstateEntanglementProperties2022,mohdebGlobalQuenchDynamics2023}. 
 % is it true MBL? different phenomenology -> e.g. aramthottilPhenomenologyManybodyLocalization2024
 In this thesis, we aim to contribute to this situation with the support of a Rydberg-based quantum simulator, which we introduce in the next section.
-% 
+ 
 \FIXME{should probably cite \cite{nandkishoreManyBodyLocalized2017} somewhere}
+
+\FIXME{Mention the whole avalanche thermalization, MBL does not exist debate somewhere}
 % "Many body localization with long range interactions" fermionic system -> use bosonization
 % very critical of the perturbative resonance counting arguments
 
@@ -227,7 +210,7 @@ In this thesis, we aim to contribute to this situation with the support of a Ryd
 
 
 %
-\FIXME{Mention the whole avalanche thermalization, MBL does not exist debate somewhere}
+
 %
 %\subsection{Localization in long-range, bond-disordered systems}
 %RSRG and schrieffer-wolff trafo

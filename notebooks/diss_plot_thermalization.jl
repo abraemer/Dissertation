@@ -18,12 +18,22 @@ end
 # ╔═╡ a2341a96-f390-4045-a327-53c422074516
 TableOfContents()
 
+# ╔═╡ 914f946b-2a6a-4006-9928-d427638a8c75
+md"""
+# ETH
+"""
+
 # ╔═╡ 6cded40a-265c-4079-b8e6-a06fd847339f
 #N=17
 N=13
 
-# ╔═╡ 1f84a47e-2d37-4287-99d4-7b1de21ef25b
+# ╔═╡ 95f064ef-e3d5-4bf1-8200-8c8bfeec3516
 binomial(13,7)
+
+# ╔═╡ 7e8f7f04-7db7-41bd-b256-5f54d1218ff5
+md"""
+## Random positions
+"""
 
 # ╔═╡ 3fefa6cb-1416-44ff-95f0-61d4fda577ce
 begin
@@ -43,6 +53,11 @@ let (f,ax,_) = scatter(vec(pos1), 1.5ones(N); alpha=0.5, markersize=20)
 	f
 end
 
+# ╔═╡ d4f6675a-298b-4df4-9f7b-20cc18a86677
+md"""
+## Energies
+"""
+
 # ╔═╡ a486a8cf-190a-4ec7-8a53-cb736b6791f5
 begin
 	sector = transformationmatrix(symmetrized_basis(N, N÷2))
@@ -56,11 +71,6 @@ end;
 
 # ╔═╡ 3ad05f78-e58f-460a-97a2-3aaaeb827468
 sector
-
-# ╔═╡ d4f6675a-298b-4df4-9f7b-20cc18a86677
-md"""
-# Energies
-"""
 
 # ╔═╡ a4a21eda-eab2-4697-9dc2-18318ac23892
 let (f,ax,_) = hist(eigenvals_ordered_normalized)
@@ -78,17 +88,17 @@ end
 
 # ╔═╡ 623ebbaa-690c-4251-8397-51c7343d2268
 md"""
-# EEV
+## EEV
 """
 
 # ╔═╡ 3321be84-53da-4d37-82c9-2ea1398b301b
 # O = sparse(NN(Chain(N))*ZZ())
 O = let couplings = zeros(N,N)
-	couplings[3,4] = 1
+	couplings[5,4] = 1
 	#sector*sparse(couplings*ZZ())*sector'
 	#sector*sparse(ones(N,N)/binomial(N,2)*XX())*sector'
 	#sector*sparse(ones(N)/N*X())*sector'
-	sector*sparse([zeros(N÷2);0;0;1;zeros(N-3-N÷2)]*Z())*sector'
+	sector*sparse([zeros(N÷2);0;0;-0.5;zeros(N-3-N÷2)]*Z())*sector'
 end
 
 # ╔═╡ 7f0514fe-3567-4f3e-8342-646822d74fa4
@@ -111,23 +121,9 @@ let (f,ax,_) = scatter(eigenvals_ordered_normalized, EEV_ordered)
 	f
 end
 
-# ╔═╡ 689ab82e-d3e3-407c-bb3e-a5512fed95e8
-# windowed_evals, windowed_EEV = let window=10, r = 0:length(eigenvals)-window
-# 	[mean(eigenvals[i+1:i+window]) for i in r],
-# 	[mean(EEV[i+1:i+window]) for i in r]
-# end
-
-# ╔═╡ bc2e651a-9561-4770-af21-2df7cc624b29
-# let (fig, ax,s) = scatter(eigenvals,EEV)
-# 	lines!(ax, windowed_evals,windowed_EEV; color=:orange, label="moving average")
-# 	ax.xlabel = L"Eigenstate energy $E_k$"
-# 	ax.ylabel = L"Eigenstate expectation value $\langle k|O|k \rangle$"
-# 	fig
-# end
-
 # ╔═╡ 35d9cf54-fabf-4810-85a7-1978eddfba38
 md"""
-# EON
+## EON
 """
 
 # ╔═╡ fdfdac0a-e91e-405b-aef5-55089c6b080f
@@ -202,18 +198,12 @@ end
 
 # ╔═╡ a3fb9d7f-d360-4bb8-8cc7-ee63b40911be
 md"""
-# Ensembles
+## Ensembles
 """
-
-# ╔═╡ 0b76e947-96ca-4fbe-b062-ea84953552c4
-sqrt(varE_ordered)
-
-# ╔═╡ 0d7b60d4-5573-4c84-8f04-ab54ad620b7d
-sqrt(varE_disordered)
 
 # ╔═╡ 9f95d12f-0933-49d9-a031-1e720033697e
 md"""
-## Diagonal Ensemble
+### Diagonal Ensemble
 """
 
 # ╔═╡ f475a627-eb50-4218-9fae-2681417a6aba
@@ -224,7 +214,7 @@ end
 
 # ╔═╡ e432060e-1a3c-4804-bb00-18fcc4fb50a5
 md"""
-## Microcanonical ensemble
+### Microcanonical ensemble
 """
 
 # ╔═╡ 10138dfe-3c81-4273-9fc7-765c23a8afa2
@@ -272,7 +262,7 @@ binned_EON_ordered = [sum(EON_ordered[s:e-1]; init=0.0) for (s,e) in zip(energy_
 energy_bins_disordered = searchsortedfirst.(Ref(eigenvals_disordered_normalized), energy_bin_values)
 
 # ╔═╡ ba2c6b54-b594-43eb-a29f-24d8cb8f4349
-binned_EON_disordered = [sum(EON_disordered[s:e-1]; init=0.0) for (s,e) in zip(energy_bins_ordered,energy_bins_ordered[2:end])]
+binned_EON_disordered = [sum(EON_disordered[s:e-1]; init=0.0) for (s,e) in zip(energy_bins_disordered,energy_bins_disordered[2:end])]
 
 # ╔═╡ 492e15cc-e83e-46d1-a912-0a209d2837c8
 let (f,a,_) = lines(energy_bin_values[1:end-1], binned_EON_ordered)
@@ -322,7 +312,7 @@ E0_disordered_normalized
 
 # ╔═╡ 879d0c93-617e-4be7-9bae-e73cb5380b6c
 md"""
-## Canonical Ensemble
+### Canonical Ensemble
 """
 
 # ╔═╡ 34471754-7722-4dc6-873b-a85893b05326
@@ -347,7 +337,7 @@ dot(softmax(-1.90535*eigenvals_disordered_normalized), EEV_disordered)
 
 # ╔═╡ 6044befd-5691-4487-b026-36ab74f77038
 md"""
-# Time evolution
+## Time evolution
 """
 
 # ╔═╡ 23ae0570-4ac0-4a47-b75b-ca58f0a2ed93
@@ -409,40 +399,43 @@ end
 
 # ╔═╡ 565161a7-aa79-4f3a-947f-f23826da3850
 md"""
-# Plots
+## Plot
 """
 
 # ╔═╡ 7a26d100-9b5e-4cd0-82b0-1978082805f7
-with_theme(theme(; height=2, width=2)) do
+with_theme(theme(; height=2.5, width=3)) do
 	fig = Figure()
 
 	ax0 = Axis(fig[0,1:2]; title="Positions")
 	scatter!(ax0, vec(pos1), 1.5ones(N); alpha=0.9, markersize=15, label="weak disorder")
 	scatter!(ax0, vec(pos2), ones(N); alpha=0.9, markersize=15, label="strong disorder")
-	ylims!(ax0, 0.0,1.75)
+	ylims!(ax0, 0.25,1.75)
 	xlims!(ax0, 0, N+0.5)
 	hidedecorations!(ax0)
-	axislegend(ax0; position=:cb, orientation=:horizontal, framevisible=false)
+	axislegend(ax0; position=:cb, orientation=:horizontal, framevisible=false, margin=(0,0,0,0), padding=0)
 	Label(fig[0,1,TopLeft()],"(a)"; tellwidth=false, tellheight=false)
 	
 	ax1 = Axis(fig[1,1]; 
 		ylabel = L"$\langle k|O|k\rangle$", 
-		xlabel = L"Energy (normalized) $E_k$")
+		xlabel = L"Energy (normalized) $E_k$",
+		title = "Eigenstate expectation")
 	scatter!(ax1, eigenvals_ordered_normalized,
-		EEV_ordered)
+		EEV_ordered; markersize=5)
 	scatter!(ax1, eigenvals_disordered_normalized,
-		EEV_disordered)
+		EEV_disordered; markersize=5)
 	Label(fig[1,1,TopLeft()],"(b)"; tellwidth=false, tellheight=false)
+	ax1.yticks = -0.5:0.5:0.5
 	
-	ax2 = Axis(fig[1,2]; 
+	ax2 = Axis(fig[1,2];
 		ylabel = L"|c_k|^2",
-		xlabel = L"Energy (normalized) $E_k$", )
+		xlabel = L"Energy (normalized) $E_k$",
+		title = "Eigenstate occupation")
 	vspan!(ax2, E0_ordered_normalized-sqrt(varE_ordered_normalized), E0_ordered_normalized + sqrt(varE_ordered_normalized); color=(Makie.wong_colors()[1],0.2))
 	vspan!(ax2, E0_disordered_normalized-sqrt(varE_disordered_normalized), E0_disordered_normalized + sqrt(varE_disordered_normalized); color=(Makie.wong_colors()[2],0.2))
 	# scatter!(ax2, eigenvals_ordered_normalized, EON_ordered; label="EON")
 	# scatter!(ax2, eigenvals_disordered_normalized, EON_disordered; label="EON")
-	scatter!(ax2, energy_bin_values[1:end-1], binned_EON_ordered)
-	scatter!(ax2, energy_bin_values[1:end-1], binned_EON_disordered)
+	scatter!(ax2, energy_bin_values[2:end], binned_EON_ordered; markersize=5)
+	scatter!(ax2, energy_bin_values[2:end], binned_EON_disordered; markersize=5)
 	# ax2.xlabel = L"Eigenstate energy $E_k$"
 	# ax2.ylabel = L"Eigenstate occupation $|\langle k| \psi \rangle|^2$"
 	# vlines!(ax2, [E0_ordered_normalized])
@@ -450,79 +443,28 @@ with_theme(theme(; height=2, width=2)) do
 	Label(fig[1,2,TopLeft()],"(c)"; tellwidth=false, tellheight=false)
 
 	tspan = range(0,40;length=201)
-	ax3 = Axis(fig[2,1:2])
+	ax3 = Axis(fig[2,1:2]; 
+		xlabel=L"Time t [$1/J$]",
+		ylabel=L"\langle\! \hat{O}(t) \rangle",
+		title="Time trace")
 	l1 = lines!(ax3, tspan, Ot_ordered; label="ordered")
 	l2 = lines!(ax3, tspan, Ot_disordered; label="disordered")
 	hlines!(ax3, [diag_ensemble_ordered]; color=l1.color, linestyle=:dash)
 	hlines!(ax3, [diag_ensemble_disordered]; color=l2.color, linestyle=:dash)
-	ax3.xlabel="Time t [1/J]"
-	ax3.ylabel=L"\langle\! \hat{O}(t) \rangle"
 	hlines!(ax3, [microcanonical_ensemble2_ordered.expvals[end]]; color=l1.color, linestyle=:dot)
 	hlines!(ax3, [microcanonical_ensemble2_disordered.expvals[end]]; color=l2.color, linestyle=:dot)
+	xlims!(ax3, -1, 48)
+	ax3.yticks = -0.5:0.25:0.5
+	text!(ax3, 40, diag_ensemble_ordered+0.02; color=l1.color, text=L"\langle\! O\rangle_{diag} = \langle\! O\rangle_{mc}", align=(:left,:bottom))
+
+	text!(ax3, 44, microcanonical_ensemble2_disordered.expvals[end]-0.02; color=l2.color, text=L"\langle\! O\rangle_{mc}", align=(:center,:top))
+	text!(ax3, 44, diag_ensemble_disordered-0.02; color=l2.color, text=L"\langle\! O\rangle_{diag}", align=(:center,:top))
+	
 	Label(fig[2,1,TopLeft()],"(d)"; tellwidth=false, tellheight=false)
 	
-	rowsize!(fig.layout, 0, Relative(0.3))
+	rowsize!(fig.layout, 0, Relative(0.2))
 	fig
-end
-
-# ╔═╡ b9acd0d1-1cb5-4bf4-ba9d-c8035c5af28e
-E0_ordered_normalized
-
-# ╔═╡ 64dcc216-57dc-4e40-b71b-371884d01e30
-md"""
-# Unrelated stuff
-"""
-
-# ╔═╡ ef01e908-8b5c-419f-99cc-a28791d1aa3a
-let r = range(0,2.01π/2;length=200), b = 0.5π/2
-	f = Figure()
-	a = Axis(f[1,1])
-	lines!(a, r, x->-b^2/2/tan(x); label="center approx")
-	vlines!(a,[b,π-b]; color=:grey, linestyle=:dot)
-	lines!(a, filter(<(b),r), a->a-b-a^2/2/tan(b); label="left approx")
-	lines!(a, filter(>(π-b),r), a->(-pi+a)+b+(pi-a)^2/2/tan(b); label="right approx")
-	lines!(a, r, a->(1-cos(b))*(a-π/2); label="linear approx (center)")
-	lines!(a, r, a->2b/π*(a-π/2); label="linear approx (whole)")
-	lines!(a, r, x->acos(cos(x))-acos(cos(x)*cos(b));linestyle=:dash, color=:black)
-	axislegend(a; position=:lt)
-	#lines!(a, filter(<(b),r), a->pi/2-ab-a^2/2/tan(b))
-	f
-end
-
-# ╔═╡ 38bab1fd-4246-49c5-8f91-95045f4162c8
-theme_latexfonts()
-
-# ╔═╡ 354dac55-fef0-4f49-931d-5ad97ba7194f
-Makie.to_font("TeX Gyre Pagella Italic")
-
-# ╔═╡ 3a248255-dcad-410c-9f1b-f5a1fef3af1f
-Makie.to_font("Math Pazo")
-
-# ╔═╡ fa2dc924-a72f-46ea-9979-7ffe55e23ed3
-let r = range(0,1.95π/2;length=200), b = 0.1π/2
-	f = Figure()
-	a = Axis(f[1,1])
-	lines!(a, r, x->x+cot(x)*b^2/2; label="center approx")
-	vlines!(a,[b,π-b]; color=:grey, linestyle=:dot)
-	lines!(a, filter(<(b),r), a->b+a^2/2/tan(b); label="left approx")
-	lines!(a, filter(>(π-b),r), a->(pi-b)-(pi-a)^2/2/tan(b); label="right approx")
-	lines!(a, r, a->π/2+(1-b^2/2)*(a-π/2); label="linear approx (center)")
-	lines!(a, r, a->π/2+(π-2b)/π*(a-π/2); label="linear approx (whole)")
-	lines!(a, r, x->acos(cos(x)*cos(b));linestyle=:dash, color=:black)
-	axislegend(a; position=:lt)
-	#lines!(a, filter(<(b),r), a->pi/2-ab-a^2/2/tan(b))
-	f
-end
-
-# ╔═╡ 707d739d-e3e7-4db4-881a-0253bb1210bb
-cot(pi/2)
-
-# ╔═╡ 00e7e06d-634f-4bc3-adef-e4aa8f06d35c
-let r = range(0,π;length=200), b = 0.2π/2
-	f,a,_ = lines(r, x->x-acos(cos(x)*cos(b)))
-	#lines!(a, r, x->-b^2/2/tan(x))
-	f
-end
+end |> save_and_display("ETH-thermalization", "part1")
 
 # ╔═╡ 25c40d98-d67b-4bc6-994b-c343f3fb06fe
 md"""
@@ -538,9 +480,6 @@ Hs2 = let N=100, W=3, Δ=1,
 	potentials[end] += Δ/4
 	LinearAlgebra.SymTridiagonal(potentials, ones(N-1)/2)
 end
-
-# ╔═╡ bec82953-b272-4c90-96be-a4147e211c28
-eigen(Hs2)
 
 # ╔═╡ 0c362908-f122-4c9b-8ba1-909262cd80b4
 with_theme(theme()) do
@@ -667,17 +606,115 @@ with_theme(theme(; height=2, width=3)) do
 	fig
 end |> save_and_display("pair-model-timecrystal", "part2")
 
+# ╔═╡ 25898d74-976f-4da3-87f8-0490e666428e
+H = NN(Chain(9))*Hopp()+ 0.5 .* (-1).^(1:9)*Z()
+
+# ╔═╡ 97a08149-0c82-4beb-825c-034c89e07a29
+ψ_neel = let v = zeros(2^9)
+	v[1+sum(k->2^k, 1:2:8)] = 1
+	v
+end
+
+# ╔═╡ bd8c8d2c-47de-407a-be5f-19d0fdb3193c
+O2 = -sparse(NN(Chain(9))*ZZ()/16)
+
+# ╔═╡ ed00bbac-74e7-4faf-bfe6-ba3920656861
+dot(ψ_neel, O2, ψ_neel)
+
+# ╔═╡ 9e8e1e17-ad21-40f3-a651-e24e84fd9a04
+E,U = eigen!(Hermitian(Matrix(H)))
+
+# ╔═╡ a537a230-4991-4c49-a818-8f296b9dad52
+ψt(t; E=E,U=U) = U*(Diagonal(cis.(-E .*t))*(U'ψ_neel))
+
+# ╔═╡ 2bd60e33-6c8d-40f7-bb39-f0585bd85aed
+lines(range(0,200; length=101), t->real(dot(ψt(t), O2, ψt(t))))
+
+# ╔═╡ 4249337d-691c-4da4-915a-aa4ad52eefde
+drive = Hermitian(Matrix(sparse(ones(9)*X())))
+
+# ╔═╡ 82344207-1345-47e5-bf5b-349147e38d36
+T=0.001
+
+# ╔═╡ d44cd737-afe6-4033-96c2-c30020c1ead2
+U_F = U'*Diagonal(cis.(-E*T))*U*cis(drive*T)
+
+# ╔═╡ 51ad9170-49b0-4b2e-8639-96aa0415e061
+E_2, U_2 = eigen(U_F)
+
+# ╔═╡ fe13e6dd-4427-4b2d-b2e1-29d43040bffb
+lines(range(0,20; length=101), t->real(dot(ψt(-im*t;E=E_2,U=U_2), O2, ψt(-im*t;E=E_2,U=U_2))))
+
+# ╔═╡ 5cae33c3-f816-49c7-8646-8cc86c87d7a4
+md"""
+# Gas in Box with divider
+"""
+
+# ╔═╡ 9d209080-e01f-4102-a590-84cad949ebe1
+with_theme(theme(; height=1, width=3)) do
+	fig = Figure()
+	ax1 = Axis(fig[1,1]; title=L"t=0")
+	hidedecorations!(ax1)
+	hidespines!(ax1)
+	box = Rect2(0,0,2,1)
+	poly!(ax1, box; strokecolor=:black, color=(:white,0.0), strokewidth=2)
+	lines!(ax1, [1,1], [0,1]; color=:gray, linestyle=:dot)
+	Nparticles = 40
+	particle_size = 10
+	mindist = 0.03
+	rng = Xoshiro(3)
+	positions1 = zeros(Nparticles, 2)
+	at = 1
+	while at <= Nparticles
+		newx,newy = rand(rng, 2)
+		mindist <= newx <= 1-mindist || continue
+		mindist <= newy <= 1-mindist || continue
+		positions1[at, :] = [newx,newy]
+		at += 1
+		for i in 1:at-2
+			hypot(newx-positions1[i,1], newy-positions1[i,2]) > 2mindist || (at -= 1; break)
+		end
+	end
+	scatter!(ax1, positions1[:,1], positions1[:,2], markersize=particle_size)
+
+	ax2 = Axis(fig[1,2]; title=L"t\gg1")
+	hidedecorations!(ax2)
+	hidespines!(ax2)
+	poly!(ax2, box; strokecolor=:black, color=(:white,0.0), strokewidth=2)
+	positions2 = zeros(Nparticles, 2)
+	at = 1
+	while at <= Nparticles
+		newx,newy = rand(rng, 2)
+		newx *= 2
+		mindist <= newx <= 2-mindist || continue
+		mindist <= newy <= 1-mindist || continue
+		positions2[at, :] = [newx,newy]
+		at += 1
+		for i in 1:at-2
+			hypot(newx-positions2[i,1], newy-positions2[i,2]) > 2mindist || (at -= 1; break)
+		end
+	end
+	scatter!(ax2, positions2[:,1], positions2[:,2], markersize=particle_size)
+
+	Label(fig[1,1,TopLeft()]; text="(a)")
+	Label(fig[1,2,TopLeft()]; text="(b)")
+	
+	fig
+end |> save_and_display("gas-in-box", "part1")
+
 # ╔═╡ Cell order:
 # ╠═fe94fe12-3e9a-11ef-3a89-7f23e9876f8e
 # ╠═be9a4606-ac35-45c2-b86f-04a886e7c6ff
 # ╠═a2341a96-f390-4045-a327-53c422074516
+# ╟─914f946b-2a6a-4006-9928-d427638a8c75
 # ╠═6cded40a-265c-4079-b8e6-a06fd847339f
-# ╠═1f84a47e-2d37-4287-99d4-7b1de21ef25b
+# ╠═95f064ef-e3d5-4bf1-8200-8c8bfeec3516
 # ╠═3ad05f78-e58f-460a-97a2-3aaaeb827468
+# ╟─7e8f7f04-7db7-41bd-b256-5f54d1218ff5
 # ╠═3fefa6cb-1416-44ff-95f0-61d4fda577ce
 # ╠═9a654b24-2a37-47b7-af75-e44a1ab36c16
+# ╠═d4f6675a-298b-4df4-9f7b-20cc18a86677
 # ╠═a486a8cf-190a-4ec7-8a53-cb736b6791f5
-# ╟─d4f6675a-298b-4df4-9f7b-20cc18a86677
 # ╠═a4a21eda-eab2-4697-9dc2-18318ac23892
 # ╠═361bf4c3-93b5-4d38-82a5-63348bb37cdc
 # ╟─623ebbaa-690c-4251-8397-51c7343d2268
@@ -685,9 +722,7 @@ end |> save_and_display("pair-model-timecrystal", "part2")
 # ╠═7f0514fe-3567-4f3e-8342-646822d74fa4
 # ╠═8f3a4e8b-9d92-4101-9611-c76dfe72aa4a
 # ╠═9966a21f-090b-4d06-855b-f9bffa50bf6a
-# ╠═689ab82e-d3e3-407c-bb3e-a5512fed95e8
-# ╠═bc2e651a-9561-4770-af21-2df7cc624b29
-# ╠═35d9cf54-fabf-4810-85a7-1978eddfba38
+# ╟─35d9cf54-fabf-4810-85a7-1978eddfba38
 # ╠═fdfdac0a-e91e-405b-aef5-55089c6b080f
 # ╠═ffb54136-d1d0-46fa-a126-9b239e08a49d
 # ╠═bdd01911-03cb-488e-b180-52e282820901
@@ -695,8 +730,6 @@ end |> save_and_display("pair-model-timecrystal", "part2")
 # ╠═6b1eb731-cf69-4e8d-96df-77a81b404896
 # ╠═bb545fe2-0274-4000-8cba-9972e5fb3d19
 # ╟─a3fb9d7f-d360-4bb8-8cc7-ee63b40911be
-# ╠═0b76e947-96ca-4fbe-b062-ea84953552c4
-# ╠═0d7b60d4-5573-4c84-8f04-ab54ad620b7d
 # ╟─9f95d12f-0933-49d9-a031-1e720033697e
 # ╠═f475a627-eb50-4218-9fae-2681417a6aba
 # ╟─e432060e-1a3c-4804-bb00-18fcc4fb50a5
@@ -721,7 +754,7 @@ end |> save_and_display("pair-model-timecrystal", "part2")
 # ╠═c3761a65-e8dd-43c5-a02f-84ddb437a21d
 # ╠═7c94177c-796c-41e0-bf8e-8b8a6af23b51
 # ╠═691c3299-c738-4f40-89cc-fa23a095e8f1
-# ╠═6044befd-5691-4487-b026-36ab74f77038
+# ╟─6044befd-5691-4487-b026-36ab74f77038
 # ╠═23ae0570-4ac0-4a47-b75b-ca58f0a2ed93
 # ╠═988735ee-9c03-4015-8c7f-544c41de869e
 # ╠═6073fa3d-004f-4b2d-a918-7ddfb47157fd
@@ -731,18 +764,8 @@ end |> save_and_display("pair-model-timecrystal", "part2")
 # ╠═cef8c186-f93e-4dca-8418-999327a25afd
 # ╟─565161a7-aa79-4f3a-947f-f23826da3850
 # ╠═7a26d100-9b5e-4cd0-82b0-1978082805f7
-# ╠═b9acd0d1-1cb5-4bf4-ba9d-c8035c5af28e
-# ╟─64dcc216-57dc-4e40-b71b-371884d01e30
-# ╠═ef01e908-8b5c-419f-99cc-a28791d1aa3a
-# ╠═38bab1fd-4246-49c5-8f91-95045f4162c8
-# ╠═354dac55-fef0-4f49-931d-5ad97ba7194f
-# ╠═3a248255-dcad-410c-9f1b-f5a1fef3af1f
-# ╠═fa2dc924-a72f-46ea-9979-7ffe55e23ed3
-# ╠═707d739d-e3e7-4db4-881a-0253bb1210bb
-# ╠═00e7e06d-634f-4bc3-adef-e4aa8f06d35c
 # ╟─25c40d98-d67b-4bc6-994b-c343f3fb06fe
 # ╠═a9cbbb3c-ec38-4742-8595-e4953c0a2c97
-# ╠═bec82953-b272-4c90-96be-a4147e211c28
 # ╠═0c362908-f122-4c9b-8ba1-909262cd80b4
 # ╟─f9119509-6e24-48ee-a1fb-71b970afc11b
 # ╠═d1fd0411-db74-450f-bc08-21719117f99a
@@ -751,3 +774,17 @@ end |> save_and_display("pair-model-timecrystal", "part2")
 # ╠═c2a2d9f4-9e30-40f6-9c84-d982298087b8
 # ╠═28716ac8-d601-4007-a0d0-1b8d28976091
 # ╠═1ff8c58e-c681-40b8-aa5c-78ea1cf54e91
+# ╠═25898d74-976f-4da3-87f8-0490e666428e
+# ╠═97a08149-0c82-4beb-825c-034c89e07a29
+# ╠═bd8c8d2c-47de-407a-be5f-19d0fdb3193c
+# ╠═ed00bbac-74e7-4faf-bfe6-ba3920656861
+# ╠═9e8e1e17-ad21-40f3-a651-e24e84fd9a04
+# ╠═a537a230-4991-4c49-a818-8f296b9dad52
+# ╠═2bd60e33-6c8d-40f7-bb39-f0585bd85aed
+# ╠═4249337d-691c-4da4-915a-aa4ad52eefde
+# ╠═82344207-1345-47e5-bf5b-349147e38d36
+# ╠═d44cd737-afe6-4033-96c2-c30020c1ead2
+# ╠═51ad9170-49b0-4b2e-8639-96aa0415e061
+# ╠═fe13e6dd-4427-4b2d-b2e1-29d43040bffb
+# ╟─5cae33c3-f816-49c7-8646-8cc86c87d7a4
+# ╠═9d209080-e01f-4102-a590-84cad949ebe1
