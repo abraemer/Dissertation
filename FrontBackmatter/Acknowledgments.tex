@@ -1,7 +1,9 @@
 %*******************************************************
 % Acknowledgments
 %*******************************************************
-\pdfbookmark[1]{Acknowledgments}{acknowledgments}
+%\pdfbookmark[0]{Acknowledgments}{acknowledgments}
+\phantomsection
+\addcontentsline{toc}{chapter}{\tocEntry{Acknowledgments}}
 
 \bigskip
 
@@ -10,29 +12,28 @@
 \let\cleardoublepage\relax
 \let\cleardoublepage\relax
 \chapter*{Acknowledgments}
-First, I would like to thank my supervisor \emph{Martin Gärttner} for the great time I was allowed to spend within his group. Well, in the beginning when I started (for my master project), there was not much of a group but it steadily grew over time into its current size. Throughout, the atmosphere was always open, engaged and friendly, which really is a reflection of your mentality. I really appreciate that I could seek your advice at anytime and you always expressed excitement about my/our work. I will always remember my time spent with you and the group fondly.
+% Martin 
+First, I would like to thank my supervisor \emph{Martin Gärttner} for the great time I was allowed to spend within his group. Well, in the beginning when I started (for my master project), there did not exist much of a group but it steadily grew over time into its current size. Throughout the whole time, the atmosphere was always open, engaged and welcoming, which really is a reflection of your mentality. I really appreciate that I could seek your advice at any time and you always expressed excitement about my/our work. I will always remember my time spent with you and the group fondly.
 
-Second, I want to thank my co-advisor \emph{Matthias Weidemüller} for the opportunity to work in so close collaboration with experiment. To me this was an ideal environment, where I could solve puzzles that actually have a counterpart in the real world. %I thoroughly enjoyed discussing physics with you and learned a lot in the process.
+% Matthias
+Secondly, I want to thank my co-advisor \emph{Matthias Weidemüller} for the opportunity to work in so close collaboration with experiment. To me this was an ideal environment, where I could solve puzzles that actually have a counterpart in the real world. %I thoroughly enjoyed discussing physics with you and learned a lot in the process.
 
+% reviewer Tilman Enss, committee Werner Aeschbach, Selim
 I also thank \emph{Tilman Enss} for reviewing this thesis and the further members of my committee \emph{Selim Jochim} and \emph{Werner Aeschbach}.
 
-%Martin, Matthias, reviewer Tilman Enss, committee Werner Aeschbach, Selim
-Although briefly mentioned above, I want to express my appreciation for all of my colleagues from the MBQD group. You all (and this includes past members in HD as well as the new crew in Jena) contributed to make this a enjoyable time - be it on our retreats or just during normal work.
-I want to make a couple special shout-outs. Starting with \emph{Niklas Euler}, with whom I had the pleasure of sharing my office and from whom I learned the secrets of cooking with Seitan. Further, I want to shout-out my norse namesake \emph{Adrian \AA sen} with whom I went on an epic quest to see the northern lights and experience the darkness of the polar night. \emph{Javad Vahedi}, I really enjoyed our discussions about numerics and programming. And last but not least, my master student \emph{Mirco Erpelding} who made the last year 112\% more enjoyable.
+% MBQD
+Although briefly mentioned above, I want to express my appreciation for all of my colleagues and friends from the MBQD group. You all (and this includes past members in HD as well as the new crew in Jena) contributed to make this a enjoyable time - be it on our retreats or just during normal work.
+I want to make a couple special shout-outs. Starting with \emph{Niklas Euler}, with whom I had the pleasure of sharing my office and from whom I learned the secrets of cooking with Seitan. Further, I want to shout-out my norse namesake \emph{Adrian \AA sen} with whom I went on an epic quest to see the northern lights and experience the darkness of the polar night. \emph{Javad Vahedi}, I really enjoyed our discussions about numerics and programming. And last but not least, \emph{Mirco Erpelding} who made the last year 112\% more enjoyable.
 
-Another big source of joy and motivation were the frequent discussions with the Rydberg team. Especially I want to thank \emph{Titus Franz} for easing my way into this project by sharing his knowledge about numerical simulations of the system. Towards the later part of my journey, \emph{Sebastian Geier} was really a great partner for discussions. I want to express my gratitude to you both and also \emph{Gerhard Zürn} for your general excitement about the experiment, which made me always looking forward to our discussions, and for your patience in explaining more details about atomic physics or the experiment whenever my theorist's perspective was a bit too simplistic.
+% Rydberg: Titus, Sebastian, Gerhard
+Another big source of joy and motivation were the frequent discussions with the Rydberg team. Especially I want to thank \emph{Titus Franz} for easing my way into this project by sharing his knowledge about numerical simulations of the system. Towards the later part of my journey, \emph{Sebastian Geier} was a great partner for discussions as well. I want to express my gratitude to you both and also include \emph{Gerhard Zürn}. Thank you for your general excitement about the experiment, which made me always looking forward to our discussions, and for your patience in explaining more details about atomic physics or the experiment whenever my theorist's perspective was a bit too simplistic.
 
+% Julia
+For the numerical work, I exclusively used the Julia programming language~\cite{bezansonJuliaFreshApproach2017}, which has been a constant source of joy. It certainly was a cornerstone of this thesis together with many excellent libraries/tools that also deserve acknowledging: \texttt{DrWatson.jl}~\cite{datserisDrWatsonPerfectSidekick2020} (reproducible scientific projects), \texttt{Pluto.jl}~\cite{fonsvanderplasPlutoJl2024} (notebooks), \texttt{DifferentialEquations.jl}~\cite{rackauckas2017differentialequations}, \texttt{Makie.jl}~\cite{danischMakieJlFlexible2021} (plots) and \texttt{DataFrames.jl}~\cite{bouchet-valatDataframesJlFlexible2023}.
 
-%Mirco
-%Office mate Niklas (seitan), rest of old PhD crew Adrian (Nordic light expedition), Moritz and Javad. new crew Martina, Elena, Mauro. 
-%Supervision of Maximilian Müllenbach, Mohammed Sinan, Mirco Erpelding (who always gave 112\%), Florian.
-%
-%enjoyed close collaboration with experimentalist, first and foremost Titus, Sebastian, Eduard. Gerhard. All the others, with whom I had some contact: Clement, Moritz, Valentina, Andre
-
-For the numerical work, I exclusively used the Julia programming language~\cite{bezansonJuliaFreshApproach2017}, which has been a constant source of joy. It certainly was a cornerstone of this thesis together with many excellent libraries/tools that also deserve acknowledging: \texttt{DrWatson.jl}~\cite{datserisDrWatsonPerfectSidekick2020} (reproducible scientific projects), \texttt{Pluto.jl}~\cite{fonsvanderplasFonspPlutoJl2024} (notebooks), \texttt{DifferentialEquations.jl}~\cite{rackauckas2017differentialequations}, \texttt{Makie.jl}~\cite{danischMakieJlFlexible2021} (plots) and \texttt{DataFrames.jl}~\cite{bouchet-valatDataframesJlFlexible2023}.
-
-
-Finally, I am very grateful for the continuous support of my friends and family. Extra special love goes out to my wonderful partner \emph{Brini}, who always was there for me when I needed her. Especially in times where this thesis filled my mind you were very understanding, supportive and even drew those coffee cups for me (see Fig.~\ref{fig:classical-coffee} and Fig.~\ref{fig:localized-macciato}).
-I am very grateful to have you in my life and I very much look forward to less stressful times to enjoy together with you of which I am sure the future will have plenty.
+% Personal
+Finally, I am very grateful for the continuous support of my friends and family. First and foremost, I want to express my heartfelt gratitude for my parents, \emph{Petra} and \emph{Achim}, who always encouraged my curiosity and supported me on every step of my way, and for also my sister \emph{Lucy}, who always believed in me and cheered me up in times of doubt.
+Extra special love goes out to my wonderful partner \emph{Brini}, who always was there for me when I needed her. Especially in times where this thesis filled my mind you were very understanding, supportive and even drew those coffee cups for me (see \autoref{fig:classical-coffee} and \autoref{fig:localized-macciato}).
+I am very grateful to have you in my life and I very much look forward to less stressful times to enjoy together with you.
 
 \endgroup

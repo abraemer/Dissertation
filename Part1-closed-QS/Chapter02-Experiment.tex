@@ -8,13 +8,13 @@
 
 % quantum simulation \cite{georgescuQuantumSimulation2014}
 
-Rydberg atoms, i.e., atoms in highly excited, hydrogen-like states, are a versatile platform for quantum simulation experiments due to their long coherence times and high degree of tunability~\cite{whitlockSimulatingQuantumSpin2017,sibalicRydbergPhysics2018,browaeysManybodyPhysicsIndividually2020a,schollQuantumSimulation2D2021}. The particular setup considered in this thesis does not employ tweezers, i.e. small traps for single atoms that can be manipulated individually, but instead traps a large amount of $^{87}$Rb atoms as a thermal cloud. The subsequent Rydberg excitation thus produces a different spatial configuration in each run of the experiment. This has the down-side that local control is very limited. However, the great advantage of this setup is the larger number of Rydberg atoms, which can well be in the thousands, in comparison to experiments using tweezers, which top out at a few hundreds of Rydberg atoms~\cite{browaeysManybodyPhysicsIndividually2020a}.
+Rydberg atoms, i.e., atoms in highly excited states, are a versatile platform for quantum simulation experiments due to their long coherence times and high degree of tunability~\cite{whitlockSimulatingQuantumSpin2017,sibalicRydbergPhysics2018,browaeysManybodyPhysicsIndividually2020a,schollQuantumSimulation2D2021}. The particular setup considered in this thesis does not employ tweezers, i.e. small traps for single atoms that can be manipulated individually, but instead traps a large amount of $^{87}$Rb atoms as a thermal cloud\footnote{Note, the temperature of the cloud is very low. Thus, the atoms' position don't change much over the course of a run.}. The subsequent Rydberg excitation thus produces a different spatial configuration in each run of the experiment. This has the down-side that local control is very limited. However, the great advantage of this setup is the larger number of Rydberg atoms, which can well be in the thousands, in comparison to experiments using tweezers, which top out at a few hundreds of Rydberg atoms~\cite{browaeysManybodyPhysicsIndividually2020a}.
 
 Using two different Rydberg states to encode the spin-$\frac{1}{2}$ degrees of freedom, this experiment naturally realizes a Heisenberg XXZ model~\cite{pineiroorioliRelaxationIsolatedDipolarInteracting2018,signolesGlassyDynamicsDisordered2021}
 \begin{equation}\label{eq:heisenberg-hamiltonian}
 	H = \sum_{i<j} J_{ij}\left(S_x^{(i)}S_x^{(j)} + S_y^{(i)}S_y^{(j)} + \Delta S_z^{(i)}S_z^{(j)}\right).
 \end{equation}
-Here the interactions $J_{ij}\propto |r_i-r_j|^{-\alpha}$ decay as power-law of the spatial separation with $\alpha=3$ (dipole-dipole) or $\alpha=6$ (van der Waals) depending on the chosen states (cf. Fig.~\ref{fig:experimental-hamiltonians}).
+Here the interactions $J_{ij}\propto |r_i-r_j|^{-\alpha}$ decay as power-law of the spatial separation with $\alpha=3$ (dipole-dipole) or $\alpha=6$ (van der Waals) depending on the chosen states (cf. \autoref{fig:experimental-hamiltonians}).
 
 \begin{figure}[htb]
 	\centering
@@ -24,14 +24,13 @@ Here the interactions $J_{ij}\propto |r_i-r_j|^{-\alpha}$ decay as power-law of 
 	\label{fig:experimental-hamiltonians}
 \end{figure}
 
-While the Rydberg atoms are positioned randomly in each shot, there is a way to control the strength of the randomness. This is enabled by the Rydberg blockade, which shifts the Rydberg excitation of a groundstate atom off resonances if another Rydberg atom is close by~\cite{lukinDipoleBlockadeQuantum2001}. Thus Rydberg atoms effectively enforce a certain minimal distance $r_b$ among them. Thus tuning the mean interspin distance $a_0$, which is related to the sample's density, we can manipulate the width of the coupling distribution (cf. Fig.~\ref{fig:disorder-distribution}). Concretely, for high density the spins need to pack tight and there is simply no room for large variations of the nearest neighbor distance. Conversely, at very low densities there is almost no correlation in the spin's locations.
+While the Rydberg atoms are positioned randomly in each shot, there is a way to control the strength of the randomness. This is enabled by the Rydberg blockade, which shifts the Rydberg excitation of a groundstate atom off resonances if another Rydberg atom is close by~\cite{lukinDipoleBlockadeQuantum2001}. Thus, Rydberg atoms effectively enforce a certain minimal distance $r_b$ among them, where $r_b$ is the blockade radius. Tuning the sample's density changes the distances between the atoms, e.g. given the Wigner-Seitz radius $a_0$, but keeps the blockade radius $r_b$ constant. Using these two length scales, we can manipulate the width of the coupling distribution (cf. \autoref{fig:disorder-distribution}): At high density, the spins need to pack tight and there is simply no room for large variations of the nearest neighbor distance $r_{NN}$ [cf. \autoref{fig:disorder-distribution}(a) and (d)]. Conversely, at very low densities there is almost no correlation in the spin's locations [cf. \autoref{fig:disorder-distribution}(c) and (f)].
 
 \begin{figure}[htb]
-	% TODO
 	\centering
-	\includegraphics[width=\textwidth]{gfx/part1/experimental-disorder-strength.jpeg}
-	\caption{Increasing density reduces the randomness in the distances by forcing atoms closer together. This modifies the coupling distributions.}
+	\includegraphics[width=\textwidth]{gfx/part1/disorder-in-experiment}
+	\caption{Example configurations (top row) and corresponding nearest-neighbor distance distributions (bottom row) for high density/weak disorder (left column), intermediate density/disorder (middle column) and low density/strong disorder (right column).}
 	\label{fig:disorder-distribution}
 \end{figure}
 
-In summary, this Rydberg quantum simulator allows for the exploration of different Heisenberg-type models with different interaction power-law exponents and tunable disorder strength all within the same experiment. 
+In summary, this Rydberg quantum simulator allows for the exploration of different Heisenberg-type models with different interaction power-law exponents and tunable disorder strength all within the same experiment. This makes it an ideal testbed for exploring the physics of disordered long-range models.

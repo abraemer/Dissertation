@@ -702,6 +702,115 @@ with_theme(theme(; height=1, width=3)) do
 	fig
 end |> save_and_display("gas-in-box", "part1")
 
+# ╔═╡ c3bfe179-595d-4faa-8884-edec9c802b24
+md"""
+# Density - Coupling distribution
+"""
+
+# ╔═╡ a729535b-5e7f-419c-b058-702b81701d11
+int = PowerLaw(1)
+
+# ╔═╡ 79b8e13f-bcd5-422c-bbca-73db891ad946
+geom_density1 = Blockaded(SpinModels.Box(12,[1,1]); blockade=0.025, retries=-1)
+
+# ╔═╡ fbeb058a-811f-4f73-bbe1-49e4e78d478d
+geom_density2 = Blockaded(SpinModels.Box(12,[1,1]); blockade=0.1, retries=-1)
+
+# ╔═╡ 58fb9ff8-a186-40a1-a46c-8d73e4504ff3
+geom_density3 = Blockaded(SpinModels.Box(12,[1,1]); blockade=0.2 , retries=-1)
+
+# ╔═╡ bfee42e8-07db-495b-8148-6228ab59276b
+begin
+	rng1 = Xoshiro(1)
+	Js1 = mapreduce(_->inv.(vec(maximum(interaction_matrix(int, geom_density1; rng=rng1); dims=1))), vcat, 1:1000)
+end
+
+# ╔═╡ 7ff461fb-522f-4457-9dcf-534fcf21ce2a
+begin
+	rng2 = Xoshiro(2)
+	Js2 = mapreduce(_->inv.(vec(maximum(interaction_matrix(int, geom_density2; rng=rng2); dims=1))), vcat, 1:1000)
+end
+
+# ╔═╡ 8cfd627b-c0a0-4800-8bc6-b7043928e49c
+begin
+	rng3 = Xoshiro(3)
+	Js3 = mapreduce(_->inv.(vec(maximum(interaction_matrix(int, geom_density3; rng=rng3); dims=1))), vcat, 1:100)
+end
+
+# ╔═╡ 816ef5b5-16e9-4a51-8b57-4945feb1c94e
+sqrt(2)/pi
+
+# ╔═╡ e1890d15-eeeb-42a2-a37d-f7064f046496
+pi/2/sqrt(3)
+
+# ╔═╡ d194dce5-934c-4f1b-9b8b-25fa7d7469e4
+a0 =  √(1/12π)
+
+# ╔═╡ a96dcfbe-3895-426b-af1b-1470cd5c42c9
+with_theme(theme(; height=2, width=3)) do
+	fig = Figure()
+
+	# column headers
+	Label(fig[0,3]; text=L"r_b=0.025", tellwidth=false, halign=:center)
+	Label(fig[0,2]; text=L"r_b=0.1", tellwidth=false, halign=:center)
+	Label(fig[0,1]; text=L"r_b=0.2", tellwidth=false, halign=:center)
+
+	# row labels
+	Label(fig[1,0]; text=L"Sample configuration$$", tellheight=false, valign=:center, rotation=π/2)
+	Label(fig[2,0]; text=L"NN distances $P(r_{NN})$", tellheight=false, valign=:center, rotation=π/2)
+	
+	# sample configurations
+	ax1 = Axis(fig[1,3]; aspect=1)
+	ax2 = Axis(fig[1,2]; aspect=1)
+	ax3 = Axis(fig[1,1]; aspect=1)
+	hidedecorations!.((ax1,ax2,ax3))
+	
+	pos1 = positions(geom_density1; rng=Xoshiro(2))
+	pos2 = positions(geom_density2; rng=Xoshiro(1))
+	pos3 = positions(geom_density3; rng=Xoshiro(3))
+
+	scatter!(ax1, pos1[1,:], pos1[2,:]; markersize=5)
+	scatter!(ax2, pos2[1,:], pos2[2,:]; markersize=20)
+	scatter!(ax3, pos3[2,:], pos3[1,:]; markersize=40)
+
+	# coupling distributions
+	ax32 = Axis(fig[2,1]; xlabel=L"r_{NN}", xticks=0:0.2:0.6)
+	ax22 = Axis(fig[2,2]; xlabel=L"r_{NN}", xticks=0:0.2:0.6)
+	ax12 = Axis(fig[2,3]; xlabel=L"r_{NN}", xticks=0:0.2:0.6)
+
+	hist!(ax12, Js1; normalization=:pdf, bins=range(0,0.6;length=41))
+	hist!(ax22, Js2; normalization=:pdf, bins=range(0,0.6;length=41))
+	hist!(ax32, Js3; normalization=:pdf, bins=range(0,0.6;length=41))
+	xlims!.((ax12,ax22,ax32), -0.03, 0.63)
+	ax32.yticks=0:4:12
+
+	# arrow underneath
+	# ax_arrow = Axis(fig[3,1:3])
+	# hidedecorations!(ax_arrow)
+	# hidespines!(ax_arrow)
+	# arrows!(ax_arrow, [0.05], [0], [0.85], [0]; linewidth=4,arrowsize=21, color=:gray)
+	# xlims!(ax_arrow, 0, 1)
+	# vlines!(ax_arrow, [0.15, 0.505, 0.86]; ymin=0.5, color=:gray)
+	# Label(fig[3,0], L"W=\frac{a_0}{r_B}"; tellwidth=false, tellheight=false)
+	# text!(ax_arrow, 0.86, 0; text=L"%$(round(a0/0.025;sigdigits=2))", align=(:center, :top))
+	
+	# minor layout improvements
+	rowgap!(fig.layout, Fixed(5))
+	colgap!(fig.layout, Fixed(20))
+	rowgap!(fig.layout, 1, Fixed(0))
+	# rowsize!(fig.layout, 3, Relative(0.1))
+
+	# labels
+	Label(fig[1,1,TopLeft()]; text="(a)", tellwidth=false, tellheight=false, alignmode=Mixed(;left=18,bottom=-11))
+	Label(fig[1,2,TopLeft()]; text="(b)", tellwidth=false, tellheight=false, alignmode=Mixed(;left=11,bottom=-11))
+	Label(fig[1,3,TopLeft()]; text="(c)", tellwidth=false, tellheight=false, alignmode=Mixed(;left=12,bottom=-11))
+
+	Label(fig[2,1,TopLeft()]; text="(d)", tellwidth=false, tellheight=false, alignmode=Mixed(;left=20,bottom=0))
+	Label(fig[2,2,TopLeft()]; text="(e)", tellwidth=false, tellheight=false, alignmode=Mixed(;left=12,bottom=0))
+	Label(fig[2,3,TopLeft()]; text="(f)", tellwidth=false, tellheight=false, alignmode=Mixed(;left=13,bottom=0))
+	fig
+end |> save_and_display("disorder-in-experiment", "part1")
+
 # ╔═╡ Cell order:
 # ╠═fe94fe12-3e9a-11ef-3a89-7f23e9876f8e
 # ╠═be9a4606-ac35-45c2-b86f-04a886e7c6ff
@@ -788,3 +897,15 @@ end |> save_and_display("gas-in-box", "part1")
 # ╠═fe13e6dd-4427-4b2d-b2e1-29d43040bffb
 # ╟─5cae33c3-f816-49c7-8646-8cc86c87d7a4
 # ╠═9d209080-e01f-4102-a590-84cad949ebe1
+# ╟─c3bfe179-595d-4faa-8884-edec9c802b24
+# ╠═a729535b-5e7f-419c-b058-702b81701d11
+# ╠═79b8e13f-bcd5-422c-bbca-73db891ad946
+# ╠═fbeb058a-811f-4f73-bbe1-49e4e78d478d
+# ╠═58fb9ff8-a186-40a1-a46c-8d73e4504ff3
+# ╠═bfee42e8-07db-495b-8148-6228ab59276b
+# ╠═7ff461fb-522f-4457-9dcf-534fcf21ce2a
+# ╠═8cfd627b-c0a0-4800-8bc6-b7043928e49c
+# ╠═816ef5b5-16e9-4a51-8b57-4945feb1c94e
+# ╠═e1890d15-eeeb-42a2-a37d-f7064f046496
+# ╠═d194dce5-934c-4f1b-9b8b-25fa7d7469e4
+# ╠═a96dcfbe-3895-426b-af1b-1470cd5c42c9

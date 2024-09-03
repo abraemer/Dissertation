@@ -36,7 +36,7 @@
     \WarningFilter{scrreprt}{Usage of package `titlesec'}
     %\WarningFilter{scrreprt}{Activating an ugly workaround}
     \WarningFilter{titlesec}{Non standard sectioning command detected}
-\documentclass[ %twoside,openright,titlepage,BCOR=5mm,
+\documentclass[ twoside,openright,titlepage,BCOR=5mm,
 				numbers=noenddot,%1headlines,
                 headinclude,footinclude,cleardoublepage=empty,abstract=on,
                 paper=a4,fontsize=11pt]{scrreprt}
@@ -47,8 +47,9 @@
 \input{classicthesis-config}
 
 \areaset[current]{420pt}{750pt}
-\setlength{\marginparwidth}{0em}%
-\setlength{\marginparsep}{0em}%
+\setlength{\marginparwidth}{0em}
+\setlength{\marginparsep}{0em}
+\renewcommand{\thepart}{\Roman{part}} % Capital roman letters
 %TODO unicode-math?
 
 %********************************************************************
@@ -80,13 +81,12 @@
 %********************************************************************
 % Drafting commands
 %*******************************************************
-\usepackage[]{fixmetodonotes}
+%\usepackage[]{fixmetodonotes}
 \makeatletter
 
 \newcommand\thefontsize{{Fontsize:\f@size pt }}
 
 \makeatother
-\renewcommand{\thepart}{\Roman{part}} % Capital roman letters
 
 %\usepackage{showframe}
 %********************************************************************
@@ -106,7 +106,7 @@
 \include{FrontBackmatter/OfficialFirstPage}
 \include{FrontBackmatter/Titlepage}
 \include{FrontBackmatter/Titleback}
-\cleardoublepage\include{FrontBackmatter/Dedication}
+%\cleardoublepage\include{FrontBackmatter/Dedication}
 \cleardoublepage\include{FrontBackmatter/Abstract}
 \cleardoublepage\include{FrontBackmatter/Publications}
 \cleardoublepage\include{FrontBackmatter/Contents}
